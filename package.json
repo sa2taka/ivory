@@ -1,0 +1,25 @@
+{
+  "name": "ivory",
+  "version": "0.0.1",
+  "description": "Ivory is desktop client for Mastodon",
+  "main": "main.js",
+  "repository": "https://github.com/sa2taka/ivory",
+  "author": "sa2taka <sa2taka@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "electron": "^9.0.0",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "prettier": "^2.0.5",
+    "ts-loader": "^7.0.4",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
