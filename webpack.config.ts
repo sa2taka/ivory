@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,12 +11,8 @@ module.exports = {
   module: {
     rules: [
       {
-        // コンパイルの事前に eslint による
-        // 拡張子 .ts または .tsx の場合
         test: /\.tsx?$/,
-        // 事前処理であることを示す
         enforce: 'pre',
-        // TypeScript をコードチェックする
         loader: 'eslint-loader',
       },
       {
@@ -30,4 +27,10 @@ module.exports = {
     },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './public/index.html',
+    }),
+  ],
 };
