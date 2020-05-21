@@ -1,5 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 
+const root = `file://${__dirname}`;
+const index = `${root}/index.html`;
+
 function createWindow() {
   let win = new BrowserWindow({
     width: 800,
@@ -9,8 +12,7 @@ function createWindow() {
     },
   });
 
-  // and load the index.html of the app.
-  win.loadFile('index.html');
+  win.loadFile(index);
 }
 
 app.whenReady().then(createWindow);

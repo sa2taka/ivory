@@ -2,10 +2,14 @@
   "name": "ivory",
   "version": "0.0.1",
   "description": "Ivory is desktop client for Mastodon",
-  "main": "main.js",
+  "main": "dist/main.js",
   "repository": "https://github.com/sa2taka/ivory",
   "author": "sa2taka <sa2taka@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "webpack-cli"
+  },
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
