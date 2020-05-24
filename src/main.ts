@@ -3,12 +3,11 @@ import path from 'path';
 import url from 'url';
 
 const index = url.format({
-  pathname: path.join(process.cwd(), 'dist/index.html'),
+  pathname: path.join(process.cwd(), 'dist/index.html '),
   protocol: 'file:',
   slashes: true,
 });
 
-console.log(index);
 function createWindow() {
   let win = new BrowserWindow({
     width: 1280,
