@@ -1,18 +1,24 @@
 import { app, BrowserWindow } from 'electron';
+import path from 'path';
+import url from 'url';
 
-const root = `file://${__dirname}`;
-const index = `${root}/index.html`;
+const index = url.format({
+  pathname: path.join(process.cwd(), 'dist/index.html'),
+  protocol: 'file:',
+  slashes: true,
+});
 
+console.log(index);
 function createWindow() {
   let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     webPreferences: {
       nodeIntegration: true,
     },
   });
 
-  win.loadFile(index);
+  win.loadURL(index);
 }
 
 app.whenReady().then(createWindow);
