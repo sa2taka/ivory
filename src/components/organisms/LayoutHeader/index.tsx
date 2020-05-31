@@ -1,5 +1,5 @@
 import React from 'react';
-import './LayoutHeader.scss';
+import './index.scss';
 import { TitleLogo } from '@/components/atoms/TitleLogo';
 
 export function LayoutHeader() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { TitleLogo } from './TitleLogo';
+import { TitleLogo } from './index';
 
 describe('TitleLogo', () => {
   test('is rendered', () => {
