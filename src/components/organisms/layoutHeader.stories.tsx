@@ -1,8 +1,8 @@
 import React from 'react';
-import Component from './layoutHeader';
+import { LayoutHeader as Component } from './LayoutHeader';
 
 export default {
   title: 'organisms',
 };
 
-export const LayoutHeader = () => <Component></Component>;
+export const LayoutHeader = () => <Component />;

@@ -1,8 +1,8 @@
 import React from 'react';
-import './layoutHeader.scss';
+import './LayoutHeader.scss';
 import 'public/ivory-logo.png';
 
-export default function LayoutHeader() {
+export function LayoutHeader() {
   return (
     <header className="LayoutHeader h-16">
       <div className="h-full .z-0 flex relative items-center">
