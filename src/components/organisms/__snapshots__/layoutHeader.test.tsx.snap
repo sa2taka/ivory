@@ -7,19 +7,7 @@ exports[`LayoutHeader is rendered 1`] = `
   <div
     className="h-full .z-0 flex relative items-center"
   >
-    <div
-      className="flex ml-4 items-center"
-    >
-      <img
-        className="h-8 w-8"
-        src="ivory-logo.png"
-      />
-      <span
-        className="ml-2 text-2xl font-semibold"
-      >
-        Ivory
-      </span>
-    </div>
+    <Component />
   </div>
 </header>
 `;
