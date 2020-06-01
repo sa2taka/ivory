@@ -6,7 +6,10 @@
     "browser": true
   },
   "parser": "babel-eslint",
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
@@ -22,5 +25,10 @@
   ],
   "rules": {
     "prettier/prettier": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "16.13"
+    }
   }
 }
