@@ -1,8 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '@/style/tailwind.css';
-import { LayoutHeader } from '@/components/organisms/LayoutHeader';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { PrivateRoute } from './libs/PrivateRoute';
+import { Main } from './components/pages/Main';
 
 const app = document.getElementById('app');
 
-ReactDOM.render(<LayoutHeader></LayoutHeader>, app);
+ReactDOM.render(
+  <Router>
+    <Switch>
+      <PrivateRoute path="/protected">
+        <Main></Main>
+      </PrivateRoute>
+    </Switch>
+  </Router>,
+  app
+);
