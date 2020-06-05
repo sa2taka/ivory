@@ -4,7 +4,9 @@ import { MastodonAuthorization } from '@/libs/Authorization/mastodonAuthorizatio
 
 type RouterProps = ComponentProps<typeof Route>;
 
-interface Props extends RouterProps {}
+interface Props extends RouterProps {
+  children: any;
+}
 
 export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
   return (
