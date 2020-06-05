@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import { PrivateRoute } from '@/libs/PrivateRoute';
+import { PrivateRoute } from '@/utils/PrivateRoute';
 import { Main } from '@/components/pages/Main';
 import { GettingStarted } from '@/components/pages/GettingStarted';
 interface Props {}
