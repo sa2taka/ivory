@@ -1,8 +1,7 @@
 import React from 'react';
-import './Main.scss';
 
 interface Props {}
 
-export const Main: React.FC<Props> = (props) => {
+export const Main: React.FC<Props> = () => {
   return <div></div>;
 };
