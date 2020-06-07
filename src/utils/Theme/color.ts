@@ -69,7 +69,7 @@ export class Color {
     }
   }
 
-  private format(): Color {
+  format(): Color {
     const color = Object.assign({}, this);
     if (color.red > 255) {
       color.red = 255;

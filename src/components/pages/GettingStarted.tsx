@@ -2,6 +2,7 @@ import React from 'react';
 import 'public/ivory-logo.png';
 import './GettingStarted.scss';
 import { Button } from '@/components/atoms/Button';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -19,7 +20,7 @@ export const GettingStarted: React.FC<Props> = () => {
         <p className="text-2xl mt-6">PC用Mastodonアプリ</p>
       </div>
       <Button className="inline-block w-auto px-8 mt-16">
-        Mastodonでログインする
+        <Link to="/login-mastodon">Mastodonでログインする</Link>
       </Button>
     </main>
   );
