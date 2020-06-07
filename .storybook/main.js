@@ -8,7 +8,6 @@ module.exports = {
     '@storybook/addon-knobs/register',
   ],
   webpackFinal: async (config) => {
-    console.log(config.resolve);
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       use: [
