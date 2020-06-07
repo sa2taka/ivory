@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import LayoutHeader from './layoutHeader';
+import { LayoutHeader } from './index';
 
 describe('LayoutHeader', () => {
   test('is rendered', () => {

@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
+
+.title {
+  &-text {
+    font-size: 132px;
+    line-height: 100%;
+    font-family: Josefin Sans;
+  }
+
+  &-logo {
+    width: 124px;
+    height: 124px;
+  }
+}
+
+.self-last-base {
+  align-self: self-end;
+}
