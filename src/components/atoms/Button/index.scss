@@ -3,3 +3,13 @@
     min-width: 64px;
   }
 }
+
+.btn {
+  &-disabled {
+    background-color: hsla(0, 0%, 50%, 0.4) !important;
+  }
+
+  &-disabled:hover {
+    background-color: hsla(0, 0%, 50%, 0.4) !important;
+  }
+}

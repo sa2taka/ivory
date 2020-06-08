@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { MastodonAuthorization } from '@/utils/Authorization/mastodonAuthorization';
+import { MastodonAuthorization } from '@/utils/Authorization/Mastodon/authorization';
 
 type RouterProps = ComponentProps<typeof Route>;
 

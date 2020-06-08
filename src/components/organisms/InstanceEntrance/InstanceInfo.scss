@@ -1,0 +1,57 @@
+.fade-appear-left {
+  animation: fade-appear-left 0.4s both;
+}
+
+.fade-appear-right {
+  animation: fade-appear-right 0.4s both;
+}
+
+.animation-ease-in-out {
+  animation-timing-function: ease-in-out;
+}
+
+.fade {
+  animation: fade 0.4s both;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@keyframes fade-appear-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-appear-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

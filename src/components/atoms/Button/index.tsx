@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.scss';
 import { Colors, Theme } from '@/types/theme';
 import { withTheme } from 'emotion-theming';
 import { css } from 'emotion';
@@ -12,6 +13,8 @@ interface Props {
   icon?: boolean;
   className?: string;
   theme: Theme;
+  disable?: boolean;
+  onClick?: (event: React.MouseEvent) => any;
 }
 
 const _Button: React.FC<Props> = ({
@@ -23,9 +26,20 @@ const _Button: React.FC<Props> = ({
   children,
   className,
   theme,
+  disable,
+  onClick,
 }) => {
   let mainColor: string = color || 'primary';
   let hoverClass: string = color || 'primary';
+
+  const handleClick = (event: React.MouseEvent) => {
+    if (disable) {
+      return;
+    }
+    if (onClick) {
+      onClick(event);
+    }
+  };
 
   if (mainColor === 'primary' || mainColor === 'secondary') {
     hoverClass = css({
@@ -40,9 +54,10 @@ const _Button: React.FC<Props> = ({
 
   return (
     <button
-      className={`${className} bg-${
-        mainColor || 'primary'
-      } ${hoverClass} font-bold py-2 px-4 rounded hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none`}
+      className={`${className} bg-${mainColor || 'primary'} ${hoverClass} ${
+        disable ? 'btn-disabled' : ''
+      } font-bold py-2 px-4 rounded hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none`}
+      onClick={handleClick}
     >
       {children}
     </button>
