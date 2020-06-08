@@ -6,6 +6,8 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-links',
     '@storybook/addon-knobs/register',
+    'storybook-dark-mode/register',
+    '@storybook/addon-backgrounds/register',
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
