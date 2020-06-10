@@ -11,20 +11,30 @@ export const InstanceEntrance: React.FC<Props> = () => {
   const [instanceUrl, setInstanceUrl] = useState('https://mstdn-workers.co');
   const [instanceInfo, setInstanceInfo] = useState<Instance | null>(null);
   const [loading, setLoading] = useState(false);
+  // NodeJS.Timer
+  const [timer, setTimer] = useState<any | null>(null);
 
   const handleInput = (url: string) => {
     setInstanceInfo(null);
     setLoading(true);
     setInstanceUrl(url);
 
-    getClientInfo(url)
-      .then((instance) => {
-        setInstanceInfo(instance);
-        console.log(instance);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    setTimer(
+      setTimeout(() => {
+        getClientInfo(url)
+          .then((instance) => {
+            setInstanceInfo(instance);
+            console.log(instance);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }, 400)
+    );
   };
   return (
     <>
