@@ -3,7 +3,7 @@ import { Button as Component } from './index';
 import { defaultTheme, Colors } from '@/types/theme';
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 export default {
-  title: 'atom',
+  title: 'atoms',
   decorators: [withKnobs],
 };
 export const Button = () => (

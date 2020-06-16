@@ -16,6 +16,27 @@ export function darken(color: string, amount: number = 10) {
   return Color.convertFrom(color)?.add(amountColor).hashColor;
 }
 
+export function opposite(colorStr: string) {
+  const color = Color.convertFrom(colorStr);
+  if (!color) {
+    return undefined;
+  }
+
+  const { red, blue, green, opacity } = color;
+
+  return new Color(255 - red, 255 - blue, 255 - green, opacity).hashColor;
+}
+
+export function isDark(colorStr: string) {
+  const color = Color.convertFrom(colorStr);
+  if (!color) {
+    return false;
+  }
+
+  const { red, blue, green } = color;
+  return (red + blue + green) / 3 < 127;
+}
+
 export class Color {
   red: number;
   green: number;
@@ -23,10 +44,27 @@ export class Color {
   opacity: number;
 
   constructor(red: number, green: number, blue: number, opacity: number = 1.0) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
-    this.opacity = opacity || 1.0;
+    // わざと-の部分は消している
+    if (red > 255) {
+      this.red = 255;
+    } else {
+      this.red = red;
+    }
+    if (green > 255) {
+      this.green = 255;
+    } else {
+      this.green = green;
+    }
+    if (blue > 255) {
+      this.blue = 255;
+    } else {
+      this.blue = blue;
+    }
+    if (opacity > 1.0) {
+      this.opacity = 1.0;
+    } else {
+      this.opacity = opacity;
+    }
   }
 
   static convertFrom(hashColor: string): Color | undefined {
