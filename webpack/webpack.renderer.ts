@@ -14,12 +14,6 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        exclude: [/node_modules/],
-      },
-      {
-        test: /\.tsx?$/,
         use: ['ts-loader'],
       },
       {
