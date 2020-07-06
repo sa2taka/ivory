@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { InstanceEditor } from './InstanceEditor';
-import { getClientInfo } from '@/utils/Authorization/Mastodon/clientInfo';
 import { Instance } from 'masto';
 import { Button } from '@/components/atoms/Button';
 import { InstanceInfo } from './InstanceInfo';
+import {
+  fetchClientInfo,
+  manageAuthentication,
+  fetchUserInfo,
+} from '@/utils/Authorization/Mastodon/authorization';
 
 interface Props {}
 
@@ -12,7 +16,7 @@ export const InstanceEntrance: React.FC<Props> = () => {
   const [instanceInfo, setInstanceInfo] = useState<Instance | null>(null);
   const [loading, setLoading] = useState(false);
   // NodeJS.Timer
-  const [timer, setTimer] = useState<any | null>(null);
+  const [timer, setTimer] = useState<any | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const handleInput = (url: string) => {
     setInstanceInfo(null);
@@ -25,10 +29,9 @@ export const InstanceEntrance: React.FC<Props> = () => {
 
     setTimer(
       setTimeout(() => {
-        getClientInfo(url)
+        fetchClientInfo(url)
           .then((instance) => {
             setInstanceInfo(instance);
-            console.log(instance);
           })
           .finally(() => {
             setLoading(false);
@@ -36,6 +39,19 @@ export const InstanceEntrance: React.FC<Props> = () => {
       }, 400)
     );
   };
+
+  const handleClick = () => {
+    if (instanceInfo) {
+      manageAuthentication(instanceInfo.uri, instanceInfo.version)
+        .then(({ token, version }) => {
+          return fetchUserInfo(instanceUrl, version, token);
+        })
+        .then(() => {
+          location.href = '#/';
+        });
+    }
+  };
+
   return (
     <>
       <InstanceEditor
@@ -43,7 +59,7 @@ export const InstanceEntrance: React.FC<Props> = () => {
         onChange={handleInput}
         className="w-full"
       />
-      <Button disable={!instanceInfo}>
+      <Button disable={!instanceInfo} onClick={handleClick}>
         {loading ? 'loading' : 'ログインする'}
       </Button>
       {instanceInfo && <InstanceInfo instanceInfo={instanceInfo} />}

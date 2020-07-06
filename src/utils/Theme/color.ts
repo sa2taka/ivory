@@ -1,4 +1,4 @@
-export function lighten(color: string, amount: number = 10) {
+export function lighten(color: string, amount = 10) {
   const amountColor = new Color(
     (256 * amount) / 100,
     (256 * amount) / 100,
@@ -7,7 +7,7 @@ export function lighten(color: string, amount: number = 10) {
   return Color.convertFrom(color)?.add(amountColor).hashColor;
 }
 
-export function darken(color: string, amount: number = 10) {
+export function darken(color: string, amount = 10) {
   const amountColor = new Color(
     -(256 * amount) / 100,
     -(256 * amount) / 100,
@@ -43,7 +43,7 @@ export class Color {
   blue: number;
   opacity: number;
 
-  constructor(red: number, green: number, blue: number, opacity: number = 1.0) {
+  constructor(red: number, green: number, blue: number, opacity = 1.0) {
     // わざと-の部分は消している
     if (red > 255) {
       this.red = 255;

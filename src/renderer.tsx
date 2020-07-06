@@ -3,22 +3,30 @@ import ReactDOM from 'react-dom';
 import { Global, css } from '@emotion/core';
 import '@/style/tailwind.css';
 import { Routing } from '@/components/pages/Routing';
-import { defaultTheme } from '@/types/theme';
-import { ThemeProvider } from 'emotion-theming';
+import { defaultTheme, Theme } from '@/types/theme';
+import { ThemeProvider, useTheme } from 'emotion-theming';
+import '@/utils/DB';
 
 const app = document.getElementById('app');
 
 ReactDOM.render(
   <ThemeProvider theme={defaultTheme}>
-    <Global
-      styles={css({
-        body: {
-          backgroundColor: defaultTheme.background,
-          color: defaultTheme.text,
-        },
-      })}
-    />
+    <GlobalStyle />
     <Routing />
   </ThemeProvider>,
   app
 );
+
+function GlobalStyle() {
+  const theme = useTheme<Theme>();
+  return (
+    <Global
+      styles={css({
+        body: {
+          backgroundColor: theme.background,
+          color: theme.text,
+        },
+      })}
+    />
+  );
+}

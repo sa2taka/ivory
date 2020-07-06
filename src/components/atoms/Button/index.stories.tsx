@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button as Component } from './index';
 import { defaultTheme, Colors } from '@/types/theme';
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
+import { withKnobs, text } from '@storybook/addon-knobs';
 export default {
   title: 'atoms',
   decorators: [withKnobs],

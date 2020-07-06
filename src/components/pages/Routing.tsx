@@ -4,7 +4,6 @@ import { PrivateRoute } from '@/utils/PrivateRoute';
 import { Main } from './Main';
 import { GettingStarted } from './GettingStarted';
 import { LoginMatodon } from './LoginMatodon';
-import { Auth } from './Auth';
 import queryString from 'query-string';
 
 interface Props {}
@@ -18,12 +17,6 @@ export const Routing: React.FC<Props> = () => {
       <Route path="/login-mastodon">
         <LoginMatodon />
       </Route>
-      <Route
-        path="/redirect-mastodon"
-        render={(props) => (
-          <Auth qs={queryString.parse(props.location.search)} />
-        )}
-      />
       <PrivateRoute path="/" exact>
         <Main />
       </PrivateRoute>

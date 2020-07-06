@@ -3,7 +3,6 @@ import './index.scss';
 import { Theme } from '@/types/theme';
 import { useTheme } from 'emotion-theming';
 import { css } from 'emotion';
-import { opposite } from '@/utils/Theme/color';
 
 interface Props {
   columnSize?: number;
@@ -11,7 +10,6 @@ interface Props {
 
 export const Loading: React.FC<Props> = () => {
   const theme = useTheme<Theme>();
-  const backgroundOppositeColor = opposite(theme.background);
 
   const backgroundStyle = css({
     'div.loading-peace': {

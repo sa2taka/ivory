@@ -2,15 +2,14 @@ import React from 'react';
 import { shallow, render } from 'enzyme';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { PrivateRoute } from './index';
-import { MastodonAuthorization } from '@/utils/Authorization/Mastodon/authorization';
-import { createMemoryHistory, MemoryHistory } from 'history';
-import toJson from 'enzyme-to-json';
+import { isAuthorized } from '@/utils/Authorization/Mastodon/authorization';
+import { createMemoryHistory } from 'history';
 
 jest.mock('@/utils/Authorization/Mastodon/authorization');
 
 describe('PrivateRoute', () => {
   test('render child if mastodon is authorized', () => {
-    (MastodonAuthorization.isAuthorized as jest.Mock).mockReturnValue(true);
+    (isAuthorized as jest.Mock).mockReturnValue(true);
     const wrapper = shallow(
       <MemoryRouter initialEntries={['/']}>
         <PrivateRoute path="/">renderd</PrivateRoute>
@@ -20,7 +19,7 @@ describe('PrivateRoute', () => {
   });
 
   test('render redirect if mastodon is not authorized', () => {
-    (MastodonAuthorization.isAuthorized as jest.Mock).mockReturnValue(false);
+    (isAuthorized as jest.Mock).mockReturnValue(false);
     const history = createMemoryHistory({
       initialEntries: ['/'],
     });

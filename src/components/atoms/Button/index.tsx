@@ -14,7 +14,7 @@ interface Props {
   className?: string;
   theme: Theme;
   disable?: boolean;
-  onClick?: (event: React.MouseEvent) => any;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
 const _Button: React.FC<Props> = ({
