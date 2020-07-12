@@ -26,6 +26,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@lokidb/loki": "^2.0.0-beta.9",
     "@storybook/addon-backgrounds": "^5.3.19",
     "@types/enzyme": "^3.10.5",

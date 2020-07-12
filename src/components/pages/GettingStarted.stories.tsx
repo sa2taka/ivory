@@ -3,6 +3,7 @@ import { GettingStarted as Component } from './GettingStarted';
 import { Global, css } from '@emotion/core';
 import { defaultTheme } from '@/types/theme';
 import { ThemeProvider } from 'emotion-theming';
+import { HashRouter as Router } from 'react-router-dom';
 export default {
   title: 'pages',
 };
@@ -16,6 +17,9 @@ export const GettingStarted = () => (
         },
       })}
     />
-    <Component />
+    <Router>
+      {' '}
+      <Component />
+    </Router>
   </ThemeProvider>
 );

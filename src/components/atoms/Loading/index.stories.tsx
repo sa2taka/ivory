@@ -5,8 +5,4 @@ import { defaultTheme } from '@/types/theme';
 export default {
   title: 'atoms',
 };
-export const Loading = () => (
-  <ThemeProvider theme={defaultTheme}>
-    <Component />
-  </ThemeProvider>
-);
+export const Loading = () => <Component />;

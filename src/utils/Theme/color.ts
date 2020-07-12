@@ -37,6 +37,11 @@ export function isDark(colorStr: string) {
   return (red + blue + green) / 3 < 127;
 }
 
+export function thin(color: string, amount = 0.1) {
+  const amountColor = new Color(0, 0, 0, -amount);
+  return Color.convertFrom(color)?.add(amountColor).hashColor;
+}
+
 export class Color {
   red: number;
   green: number;
@@ -103,7 +108,12 @@ export class Color {
     if (formated.opacity === 1.0) {
       return color;
     } else {
-      return color + Math.round(formated.opacity * 256).toString(16);
+      return (
+        color +
+        Math.round(formated.opacity * 256)
+          .toString(16)
+          .padStart(2, '0')
+      );
     }
   }
 
