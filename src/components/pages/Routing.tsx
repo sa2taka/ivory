@@ -4,7 +4,6 @@ import { PrivateRoute } from '@/utils/PrivateRoute';
 import { Main } from './Main';
 import { GettingStarted } from './GettingStarted';
 import { LoginMatodon } from './LoginMatodon';
-import queryString from 'query-string';
 
 interface Props {}
 

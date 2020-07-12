@@ -1,9 +1,5 @@
 import React from 'react';
 import { TootArea as Component } from './index';
-import { ThemeProvider } from 'emotion-theming';
-import { defaultTheme } from '@/types/theme';
-import { Global } from '@emotion/core';
-import { css } from '@emotion/core';
 
 export default {
   title: 'organisms',
