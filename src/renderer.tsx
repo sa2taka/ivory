@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Global, css } from '@emotion/core';
-import '@/style/tailwind.css';
+import '@/s/tailwind.css';
 import { Routing } from '@/components/pages/Routing';
 import { defaultTheme, Theme } from '@/types/theme';
 import { ThemeProvider, useTheme } from 'emotion-theming';

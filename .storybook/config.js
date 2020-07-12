@@ -1,4 +1,4 @@
-import '@/style/tailwind.css';
+import '@/styles/tailwind.css';
 import { themes, Global, css } from '@storybook/theming';
 import { addParameters, addDecorator } from '@storybook/react';
 
