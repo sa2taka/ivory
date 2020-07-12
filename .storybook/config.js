@@ -1,7 +1,11 @@
 import '@/style/tailwind.css';
-import { themes } from '@storybook/theming';
+import { themes, Global, css } from '@storybook/theming';
 import { addParameters, addDecorator } from '@storybook/react';
-import { withBackgrounds } from '@storybook/addon-backgrounds';
+
+import React from 'react';
+import { ThemeProvider } from 'emotion-theming';
+import { defaultTheme } from '../src/types/theme';
+import { ThinI18nProvider } from '../src/utils/thinI18n';
 
 addParameters({
   darkMode: {
@@ -9,7 +13,21 @@ addParameters({
     light: { ...themes.normal },
   },
   backgrounds: [
-    { name: 'dark', value: '#1a2335', default: true }, // デフォルトの色にdefault:trueを絵ッてい
+    { name: 'dark', value: '#1a2335', default: true },
     { name: 'light', value: '#fff' },
   ],
 });
+
+addDecorator((storyFn) => (
+  <ThemeProvider theme={defaultTheme}>
+    <Global
+      styles={css({
+        body: {
+          backgroundColor: defaultTheme.background,
+          color: defaultTheme.text,
+        },
+      })}
+    />
+    <ThinI18nProvider lang="ja">{storyFn()}</ThinI18nProvider>
+  </ThemeProvider>
+));
