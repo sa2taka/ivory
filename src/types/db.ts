@@ -13,4 +13,5 @@ export interface User {
   userId: string;
   userInfo: AccountCredentials;
   accessToken: string;
+  lastSelectedAt: Date;
 }
