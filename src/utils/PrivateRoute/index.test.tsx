@@ -1,15 +1,14 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
-import { MemoryRouter, Router } from 'react-router-dom';
+import { shallow } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 import { PrivateRoute } from './index';
 import { isAuthorized } from '@/utils/Authorization/Mastodon/authorization';
-import { createMemoryHistory } from 'history';
 
 jest.mock('@/utils/Authorization/Mastodon/authorization');
 
 describe('PrivateRoute', () => {
   test('render child if mastodon is authorized', () => {
-    (isAuthorized as jest.Mock).mockReturnValue(true);
+    (isAuthorized as jest.Mock).mockReturnValue(Promise.resolve(true));
     const wrapper = shallow(
       <MemoryRouter initialEntries={['/']}>
         <PrivateRoute path="/">renderd</PrivateRoute>
@@ -19,15 +18,28 @@ describe('PrivateRoute', () => {
   });
 
   test('render redirect if mastodon is not authorized', () => {
-    (isAuthorized as jest.Mock).mockReturnValue(false);
-    const history = createMemoryHistory({
-      initialEntries: ['/'],
-    });
-    const wrapper = render(
-      <Router history={history}>
+    (isAuthorized as jest.Mock).mockReturnValue(Promise.resolve(false));
+
+    const wrapper = shallow(
+      <MemoryRouter initialEntries={['/']}>
         <PrivateRoute path="/">renderd</PrivateRoute>
-      </Router>
+      </MemoryRouter>
     );
-    expect(wrapper.html()).not.toBe('renderd');
+
+    const realUseState = React.useState;
+    // Stub the initial state
+    const stubInitialState = false;
+
+    jest
+      .spyOn(React, 'useState')
+      // @ts-ignore
+      .mockImplementationOnce(() => realUseState(stubInitialState));
+    jest
+      .spyOn(React, 'useState')
+      // @ts-ignore
+      .mockImplementationOnce(() => realUseState(stubInitialState));
+
+    const html = wrapper.html();
+    expect(html).not.toBe('renderd');
   });
 });
