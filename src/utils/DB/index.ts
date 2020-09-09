@@ -1,105 +1,86 @@
-import Nedb from 'nedb';
 import { Client, User } from '@/types/db';
-import path from 'path';
+import PouchDB from 'pouchdb';
+import PouchDBFind from 'pouchdb-find';
 
-const STORES_PATH = path.resolve(process.cwd(), 'data');
-const stores: Record<string, Nedb> = {};
+PouchDB.plugin(PouchDBFind);
 
-export function initialStore() {
-  clients();
-  users();
-}
+const stores: Record<string, PouchDB.Database<any>> = {};
+const clientDB: PouchDB.Database<Client> = clients();
+const userDB: PouchDB.Database<User> = users();
 
-// client
 function clients() {
   if (!stores.client) {
-    stores.client = new Nedb<Client>({
-      filename: path.resolve(STORES_PATH, 'client.db'),
-      autoload: true,
+    stores.client = new PouchDB<Client>('client');
+    stores.client.createIndex({
+      index: {
+        fields: ['domain', 'clientId'],
+      },
     });
-    stores.client.loadDatabase();
   }
   return stores.client;
 }
 
-export function saveClient(client: Client) {
-  const c = clients();
-  return promisifyInsert<Client>(c.insert.bind(c), client);
-}
-
-export function getClientFromUri(uri: string) {
-  const c = clients();
-  return promisifyFind<Client[]>(c.find.bind(c), { uri }).then((result) => {
-    return result[0];
-  });
-}
-
-// user
-
-export function users() {
+function users() {
   if (!stores.users) {
-    stores.users = new Nedb<User>({
-      filename: path.resolve(STORES_PATH, 'users.db'),
-      autoload: true,
+    stores.users = new PouchDB<Client>('user');
+    stores.users.createIndex({
+      index: {
+        fields: ['domain', 'userId', 'lastSelectedAt'],
+      },
     });
-    stores.users.loadDatabase();
   }
   return stores.users;
 }
 
+export function saveClient(client: Client) {
+  return clientDB.put(client).then((result) => {
+    return client;
+  });
+}
+
+export function getClientFromUri(domain: string) {
+  return clientDB
+    .find({
+      selector: {
+        domain,
+      },
+    })
+
+    .then((result) => {
+      return result.docs.filter((doc) => {
+        return !doc._id.startsWith('_design/');
+      })[0];
+    });
+}
+
 export function saveUser(user: User) {
-  const u = users();
-  return promisifyInsert<User>(u.insert.bind(u), user);
+  return userDB.put(user).then(() => {
+    return user;
+  });
 }
 
 export function getUser(domain: string, userId: string) {
-  const u = users();
-  return promisifyFind<User[]>(u.find.bind(u), {
-    domain,
-    userId,
-  }).then((result) => {
-    return result[0];
-  });
+  return userDB.get(userId + domain);
 }
 
 export function getAllUsers() {
-  const u = users();
-  return promisifyFind<User[]>(u.find.bind(u), {}).then((users) => {
-    return users.sort(
-      (a, b) => b.lastSelectedAt.getTime() - a.lastSelectedAt.getTime()
-    );
-  });
-}
-
-function promisifyInsert<T>(
-  insert: (item: T, callback: (err: Error | null, document: T) => void) => void,
-  item: T
-) {
-  return new Promise<T>((resolve, reject) => {
-    insert(item, (err, result) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(result);
+  return userDB
+    .allDocs({
+      include_docs: true,
+    })
+    .then((result) => {
+      return result.rows
+        .map(({ doc }) => {
+          return doc as PouchDB.Core.ExistingDocument<
+            User & PouchDB.Core.AllDocsMeta
+          >;
+        })
+        .sort((a, b) => {
+          return b!.lastSelectedAt - a!.lastSelectedAt;
+        })
+        .filter((doc) => {
+          // 何故か追加していないdocが追加されているのでここで省いている
+          return !doc._id.startsWith('_design/');
+        });
     });
-  });
-}
-
-function promisifyFind<T = any>(
-  find: (
-    query: any,
-    projection?: any,
-    callback?: (err: Error, result: T) => void
-  ) => void,
-  query: any,
-  projection: any = {}
-): Promise<T> {
-  return new Promise((resolve, reject) => {
-    find(query, projection, (err, result) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(result);
-    });
-  });
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, createContext } from 'react';
 import ReactDOM from 'react-dom';
 import { Global, css } from '@emotion/core';
 import '@/styles/tailwind.css';
@@ -6,6 +6,7 @@ import { Routing } from '@/components/pages/Routing';
 import { defaultTheme, Theme } from '@/types/theme';
 import { ThemeProvider, useTheme } from 'emotion-theming';
 import '@/utils/DB';
+import { isAuthorized } from './utils/Authorization/Mastodon/authorization';
 
 const app = document.getElementById('app');
 

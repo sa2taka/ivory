@@ -9,11 +9,22 @@ import {
 } from '@/utils/DB';
 import Electron from 'electron';
 
+let setAuth: (value: boolean) => any;
+export function setDispathAuthFunction(fn: (value: boolean) => any) {
+  setAuth = fn;
+}
+
 export async function isAuthorized() {
   const user = (await getAllUsers())[0];
   if (user) {
+    if (setAuth) {
+      setAuth(true);
+    }
     return true;
   } else {
+    if (setAuth) {
+      setAuth(false);
+    }
     return false;
   }
 }
@@ -73,6 +84,7 @@ export async function createMastodonApp(uri: string, version: string) {
       const clientSecret = client.clientSecret;
       const vapidKey = client.vapidKey;
       return saveClient({
+        _id: clientId + domain,
         domain,
         version,
         clientId,
@@ -81,7 +93,7 @@ export async function createMastodonApp(uri: string, version: string) {
       });
     })
     .catch((err: Error) => {
-      console.error(err);
+      console.error(err, err.message);
       throw err;
     });
 }
@@ -108,11 +120,7 @@ export function manageAuthentication(
   let cId: string;
   let cSecret: string;
 
-  return Electron.remote.session.defaultSession
-    .clearStorageData()
-    .then(() => {
-      return createMastodonApp(`https://${instanceDomain}`, version);
-    })
+  return createMastodonApp(`https://${instanceDomain}`, version)
     .then(({ clientId, clientSecret }) => {
       cId = clientId;
       cSecret = clientSecret;
@@ -207,12 +215,15 @@ export function fetchUserInfo(
       const domain = new URL(baseUrl).hostname;
       const userId = credentials.id;
 
+      setAuth(true);
+
       return saveUser({
+        _id: userId + domain,
         domain,
         userId,
         userInfo: credentials,
         accessToken,
-        lastSelectedAt: new Date(),
+        lastSelectedAt: new Date().getTime(),
       });
     });
 }

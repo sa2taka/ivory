@@ -8,6 +8,7 @@ import {
   manageAuthentication,
   fetchUserInfo,
 } from '@/utils/Authorization/Mastodon/authorization';
+import { useHistory } from 'react-router';
 
 interface Props {}
 
@@ -17,6 +18,7 @@ export const InstanceEntrance: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false);
   // NodeJS.Timer
   const [timer, setTimer] = useState<any | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const history = useHistory();
 
   const handleInput = (url: string) => {
     setInstanceInfo(null);
@@ -46,8 +48,8 @@ export const InstanceEntrance: React.FC<Props> = () => {
         .then(({ token, version }) => {
           return fetchUserInfo(instanceUrl, version, token);
         })
-        .then(() => {
-          location.href = '#/';
+        .then((user) => {
+          history.push('/');
         });
     }
   };
