@@ -23,6 +23,7 @@ interface Props {
   select?: number;
   optionHeight?: 24;
   onSelect?: (index: number) => void;
+  outline?: boolean;
 }
 
 export const Select: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const Select: React.FC<Props> = ({
   optionHeight,
   select,
   onSelect,
+  outline,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(select);
   const [open, setOpen] = useState(false);
@@ -47,6 +49,26 @@ export const Select: React.FC<Props> = ({
   const labelColor = isDark(theme.text)
     ? lighten(theme.text, 20)
     : darken(theme.text, 20);
+
+  const underLineClass = css({
+    '&::before': {
+      bottom: '-1px',
+      content: "''",
+      left: '0',
+      position: 'absolute',
+      transition: '.3s ease',
+      width: '100%',
+      'border-style': 'solid',
+      'border-width': 'thin 0 0',
+      'border-color': borderColor,
+    },
+    '&:hover::before': {
+      'border-color': `${focusedBorderColor}`,
+    },
+    '&:focus-within::before': {
+      border: `1px solid ${thin(theme.primary, 0.3)}`,
+    },
+  });
 
   const borderClass = css({
     border: `1px solid ${borderColor}`,
@@ -84,7 +106,7 @@ export const Select: React.FC<Props> = ({
       <div
         role={role}
         aria-live={ariaLive}
-        className={`transition-all ease-in-out duration-150 flex items-center px-3 ${hoverOptionClass} ${
+        className={`transition-all ease-in-out duration-150 flex items-center px-3 my-2 ${hoverOptionClass} ${
           option.className || ''
         }`}
         key={option.key}
@@ -104,9 +126,14 @@ export const Select: React.FC<Props> = ({
   };
 
   return (
-    <div role="listbox" className={`Select  ${borderClass} ${className || ''}`}>
+    <div
+      role="listbox"
+      className={`Select ${
+        outline ? borderClass : open ? underLineClass : ''
+      } ${className || ''}`}
+    >
       <div
-        className="flex select-none items-center px-3 my-2"
+        className={`flex select-none items-center px-3 my-2 relative ${underLineClass}`}
         style={{ height: `${_optionHeight}px` }}
         onClick={() => {
           setOpen(!open);

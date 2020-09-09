@@ -18,5 +18,5 @@ const options: Array<Option> = [
   },
 ];
 export const Select = () => (
-  <Component label="ユーザー" options={options} className="m-4" />
+  <Component label="ほげほげ" options={options} className="m-4" />
 );
