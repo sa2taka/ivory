@@ -40,7 +40,6 @@ export const Select: React.FC<Props> = ({
   const [open, setOpen] = useState(false);
   const theme = useTheme<Theme>();
   const _optionHeight = optionHeight || 42;
-  console.log(select, localIndex);
   const usingSelect = select !== undefined ? select : localIndex;
 
   const borderColor = isDark(theme.background)
@@ -134,7 +133,6 @@ export const Select: React.FC<Props> = ({
     );
   };
 
-  console.log('using select', usingSelect);
   return (
     <div
       role="listbox"

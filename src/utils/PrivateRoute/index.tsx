@@ -1,6 +1,9 @@
 import React, { ReactNode, ComponentProps, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuthorized } from '@/utils/Authorization/Mastodon/authorization';
+import {
+  isAuthorized,
+  setDispathAuthFunction,
+} from '@/utils/Authorization/Mastodon/authorization';
 
 type RouterProps = ComponentProps<typeof Route>;
 
@@ -9,8 +12,12 @@ interface Props extends RouterProps {
 }
 
 export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
-  const [isAhoutrizedState, setAuthorizedStatus] = useState(false);
+  const [isAuthorizedState, setAuthorizedStatus] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
+  // Routerの仕様的にどうしてもiSAuthorizedStateの変更が難しかったので
+  // 変更用の関数を利用してライブラリ内で直に叩いてもらうようにした
+  setDispathAuthFunction(setAuthorizedStatus);
 
   if (isLoading) {
     isAuthorized().then((value) => {
@@ -23,7 +30,7 @@ export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        isLoading || isAhoutrizedState ? (
+        isLoading || isAuthorizedState ? (
           children
         ) : (
           <Redirect
