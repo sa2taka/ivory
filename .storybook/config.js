@@ -25,6 +25,13 @@ addDecorator((storyFn) => (
         body: {
           backgroundColor: defaultTheme.background,
           color: defaultTheme.text,
+          'font-size': defaultTheme.fontSize,
+          'font-family': defaultTheme.font,
+          '--background-color': defaultTheme.background,
+          '--text-color': defaultTheme.text,
+          '--primary-color': defaultTheme.primary,
+          '--secaondary-color': defaultTheme.secondary,
+          '--font-size': defaultTheme.fontSize,
         },
       })}
     />

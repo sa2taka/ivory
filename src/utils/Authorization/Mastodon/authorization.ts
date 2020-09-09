@@ -212,6 +212,7 @@ export function fetchUserInfo(
         userId,
         userInfo: credentials,
         accessToken,
+        lastSelectedAt: new Date(),
       });
     });
 }

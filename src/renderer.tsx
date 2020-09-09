@@ -25,6 +25,13 @@ function GlobalStyle() {
         body: {
           backgroundColor: theme.background,
           color: theme.text,
+          'font-size': theme.fontSize,
+          'font-family': theme.font,
+          '--background-color': theme.background,
+          '--text-color': theme.text,
+          '--primary-color': theme.primary,
+          '--secaondary-color': theme.secondary,
+          '--font-size': theme.fontSize,
         },
       })}
     />

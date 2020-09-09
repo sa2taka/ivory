@@ -66,7 +66,7 @@ export function getAllUsers() {
 }
 
 function promisifyInsert<T>(
-  insert: (item: T, callback: (err: Error, document: T) => void) => void,
+  insert: (item: T, callback: (err: Error | null, document: T) => void) => void,
   item: T
 ) {
   return new Promise<T>((resolve, reject) => {

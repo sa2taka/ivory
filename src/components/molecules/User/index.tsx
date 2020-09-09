@@ -10,7 +10,7 @@ interface Props {
 
 export const User: React.FC<Props> = ({ userInfo }) => {
   return (
-    <div className="grid user-icon-grid-template-cols col-gap-2">
+    <div className="grid user-icon-grid-template-cols gap-x-2">
       <UserIcon iconImg={userInfo.avatar} className="row-span-2" />
       <span className="row-span-1 col-start-2 mt-2 text-lg font-semibold">
         {userInfo.displayName}

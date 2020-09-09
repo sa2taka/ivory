@@ -1,0 +1,26 @@
+.Select {
+  font-size: 1em;
+  cursor: pointer;
+  word-wrap: break-word;
+  line-height: 1em;
+  white-space: normal;
+  outline: 0;
+  transform: rotateZ(0);
+  min-width: 14em;
+  min-height: 24px;
+  display: inline-block;
+  box-shadow: none;
+  border-radius: 0.26rem;
+  transition: border 0.1s ease, width 0.1s ease;
+
+  &Label {
+    background: var(--background-color);
+    color: var(--primary-color) !important;
+    font-size: 0.8em;
+    text-align: center;
+  }
+}
+
+.Option {
+  transition: height 0.1s ease;
+}
