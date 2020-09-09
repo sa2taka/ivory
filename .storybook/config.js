@@ -25,8 +25,8 @@ addDecorator((storyFn) => (
         body: {
           backgroundColor: defaultTheme.background,
           color: defaultTheme.text,
-          'font-size': defaultTheme.fontSize,
-          'font-family': defaultTheme.font,
+          fontSize: defaultTheme.fontSize,
+          fontFamily: defaultTheme.font,
           '--background-color': defaultTheme.background,
           '--text-color': defaultTheme.text,
           '--primary-color': defaultTheme.primary,

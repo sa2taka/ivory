@@ -19,6 +19,7 @@ function createWindow() {
     height: 720,
     webPreferences: {
       nodeIntegration: true,
+      worldSafeExecuteJavaScript: false,
     },
   });
 

@@ -11,6 +11,7 @@ interface Props extends RouterProps {
 export const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
   const [isAhoutrizedState, setAuthorizedStatus] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
   if (isLoading) {
     isAuthorized().then((value) => {
       setAuthorizedStatus(value);

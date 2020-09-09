@@ -9,14 +9,16 @@ interface Props {
 }
 
 export const User: React.FC<Props> = ({ userInfo }) => {
+  const url = new URL(userInfo.url);
+  const domain = url.hostname;
   return (
     <div className="grid user-icon-grid-template-cols gap-x-2">
       <UserIcon iconImg={userInfo.avatar} className="row-span-2" />
       <span className="row-span-1 col-start-2 mt-2 text-lg font-semibold">
         {userInfo.displayName}
       </span>
-      <span className="row-span-1 col-start-2 mb-2 align-top text-xs">
-        {userInfo.acct}
+      <span className="row-span-1 col-start-2 mb-2 mt-1 align-top text-xs">
+        {userInfo.acct} @ {domain}
       </span>
     </div>
   );

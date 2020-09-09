@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
-import { User } from '@/components/molecules/User';
 import { User as IUser } from '@/types/db';
 import { Button } from '@/components/atoms/Button';
 import { css } from 'emotion';
@@ -8,13 +7,14 @@ import { useTheme } from 'emotion-theming';
 import { Theme } from '@/types/theme';
 import { darken, isDark, lighten, thin } from '@/utils/Theme/color';
 import { useThinI18n } from '@/utils/thinI18n';
+import { SelectableUser } from '@/components/molecules/SelectableUser';
 interface Props {
-  user: IUser;
   className?: string;
 }
 
-export const TootArea: React.FC<Props> = ({ user, className }) => {
+export const TootArea: React.FC<Props> = ({ className }) => {
   const [toot, setToot] = useState('');
+  const [user, setUser] = useState<IUser | null>(null);
   const theme = useTheme<Theme>();
   const footerColorClass = css({
     backgroundColor: isDark(theme.background)
@@ -28,7 +28,7 @@ export const TootArea: React.FC<Props> = ({ user, className }) => {
   });
   const primaryLightShadowClass = css({
     '&:focus-within': {
-      'box-shadow': `0 1px 6px 1px ${thin(theme.primary, 0.3)}`,
+      boxShadow: `0 1px 6px 1px ${thin(theme.primary, 0.3)}`,
     },
   });
 
@@ -36,11 +36,15 @@ export const TootArea: React.FC<Props> = ({ user, className }) => {
     setToot(event.target.value);
   }
 
+  function handleSelect(user: IUser) {
+    setUser(user);
+  }
+
   const lang = useThinI18n();
 
   return (
     <div className={`mx-6 flex flex-col ${className}`}>
-      <User userInfo={user.userInfo} />
+      <SelectableUser onSelect={handleSelect} />
       <div
         className={`shadow-md transition-shadow duration-200 mt-3 ease-out TootArea-LightWhenFocus ${primaryLightShadowClass}`}
       >
@@ -48,9 +52,8 @@ export const TootArea: React.FC<Props> = ({ user, className }) => {
         <textarea
           className={`resize-none p-2 rounded-t w-full -mb-2 TootArea-Textarea TootArea-InnerBottomShadow ${textareaColorClass}`}
           onChange={handleInput}
-        >
-          {toot}
-        </textarea>
+          value={toot}
+        ></textarea>
         <div
           className={`rounded-b mt-0 w-full p-2 flex TootArea-TootFooter ${footerColorClass}`}
         >

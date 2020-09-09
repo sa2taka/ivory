@@ -36,10 +36,12 @@ export const Select: React.FC<Props> = ({
   onSelect,
   outline,
 }) => {
-  const [selectedIndex, setSelectedIndex] = useState(select);
+  const [localIndex, setLocalIndex] = useState<number | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const theme = useTheme<Theme>();
   const _optionHeight = optionHeight || 42;
+  console.log(select, localIndex);
+  const usingSelect = select !== undefined ? select : localIndex;
 
   const borderColor = isDark(theme.background)
     ? lighten(theme.background)
@@ -59,15 +61,15 @@ export const Select: React.FC<Props> = ({
       position: 'absolute',
       transition: '.3s ease',
       width: '100%',
-      'border-style': 'solid',
-      'border-width': 'thin 0 0',
-      'border-color': borderColor,
+      borderStyle: 'solid',
+      borderWidth: 'thin 0 0',
+      borderColor: borderColor,
     },
     '&:hover::before': {
-      'border-color': `${focusedBorderColor}`,
+      borderColor: `${focusedBorderColor}`,
     },
     '&:focus-within::before': {
-      border: `1px solid ${thin(theme.primary, 0.3)}`,
+      borderColor: `${thin(theme.primary, 0.3)}`,
     },
   });
 
@@ -114,7 +116,7 @@ export const Select: React.FC<Props> = ({
         style={{ height: `${height}px` }}
         onClick={() => {
           if (open) {
-            setSelectedIndex(index);
+            setLocalIndex(index);
             setOpen(false);
             onSelect && onSelect(index);
           }
@@ -132,6 +134,7 @@ export const Select: React.FC<Props> = ({
     );
   };
 
+  console.log('using select', usingSelect);
   return (
     <div
       role="listbox"
@@ -151,25 +154,25 @@ export const Select: React.FC<Props> = ({
         <label
           style={{ color: labelColor }}
           className={`absolute transform duration-100 ease-in-out ${
-            selectedIndex !== undefined && `SelectLabel ${labelTransformClass}`
+            usingSelect !== undefined && `SelectLabel ${labelTransformClass}`
           }`}
         >
           {label}
         </label>
-        {selectedIndex !== undefined && (
+        {usingSelect !== undefined && (
           <div
             aria-live="polite"
             className={`flex items-center ${
-              options[selectedIndex].className || ''
+              options[usingSelect].className || ''
             }`}
-            key={options[selectedIndex].key}
+            key={options[usingSelect].key}
           >
-            {options[selectedIndex].display ? (
-              options[selectedIndex].display
+            {options[usingSelect].display ? (
+              options[usingSelect].display
             ) : (
               <>
-                {options[selectedIndex].icon}
-                {options[selectedIndex].text || options[selectedIndex].value}
+                {options[usingSelect].icon}
+                {options[usingSelect].text || options[usingSelect].value}
               </>
             )}
           </div>

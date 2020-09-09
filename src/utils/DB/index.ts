@@ -17,6 +17,7 @@ function clients() {
       filename: path.resolve(STORES_PATH, 'client.db'),
       autoload: true,
     });
+    stores.client.loadDatabase();
   }
   return stores.client;
 }
@@ -41,6 +42,7 @@ export function users() {
       filename: path.resolve(STORES_PATH, 'users.db'),
       autoload: true,
     });
+    stores.users.loadDatabase();
   }
   return stores.users;
 }
@@ -62,7 +64,11 @@ export function getUser(domain: string, userId: string) {
 
 export function getAllUsers() {
   const u = users();
-  return promisifyFind<User[]>(u.find.bind(u), {});
+  return promisifyFind<User[]>(u.find.bind(u), {}).then((users) => {
+    return users.sort(
+      (a, b) => b.lastSelectedAt.getTime() - a.lastSelectedAt.getTime()
+    );
+  });
 }
 
 function promisifyInsert<T>(

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Global, css } from '@emotion/core';
-import '@/s/tailwind.css';
+import '@/styles/tailwind.css';
 import { Routing } from '@/components/pages/Routing';
 import { defaultTheme, Theme } from '@/types/theme';
 import { ThemeProvider, useTheme } from 'emotion-theming';
@@ -25,8 +25,8 @@ function GlobalStyle() {
         body: {
           backgroundColor: theme.background,
           color: theme.text,
-          'font-size': theme.fontSize,
-          'font-family': theme.font,
+          fontSize: theme.fontSize,
+          fontFamily: theme.font,
           '--background-color': theme.background,
           '--text-color': theme.text,
           '--primary-color': theme.primary,

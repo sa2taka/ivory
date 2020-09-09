@@ -17,5 +17,5 @@ const user: any = {
 };
 
 export const TootArea = () => {
-  return <Component user={user} className="w-3/5" />;
+  return <Component className="w-3/5" />;
 };
