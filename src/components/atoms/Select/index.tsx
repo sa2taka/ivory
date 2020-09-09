@@ -14,6 +14,7 @@ export interface Option {
   text?: string;
   className?: string;
   icon?: React.ReactNode;
+  display?: React.ReactNode;
 }
 
 interface Props {
@@ -21,7 +22,7 @@ interface Props {
   className?: string;
   options: Array<Option>;
   select?: number;
-  optionHeight?: 24;
+  optionHeight?: number;
   onSelect?: (index: number) => void;
   outline?: boolean;
 }
@@ -38,7 +39,7 @@ export const Select: React.FC<Props> = ({
   const [selectedIndex, setSelectedIndex] = useState(select);
   const [open, setOpen] = useState(false);
   const theme = useTheme<Theme>();
-  const _optionHeight = optionHeight || 32;
+  const _optionHeight = optionHeight || 42;
 
   const borderColor = isDark(theme.background)
     ? lighten(theme.background)
@@ -81,7 +82,7 @@ export const Select: React.FC<Props> = ({
   });
 
   const labelTransformClass = css({
-    transform: `translateX(-4px) translateY(calc(${-_optionHeight}px + 0.6em))`,
+    transform: `translateX(-4px) translateY(calc(${-_optionHeight}px + 1em))`,
   });
 
   const hoverOptionClass = css({
@@ -106,7 +107,7 @@ export const Select: React.FC<Props> = ({
       <div
         role={role}
         aria-live={ariaLive}
-        className={`transition-all ease-in-out duration-150 flex items-center px-3 my-2 ${hoverOptionClass} ${
+        className={`transition-all ease-in-out duration-150 flex items-center px-3 ${hoverOptionClass} ${
           option.className || ''
         }`}
         key={option.key}
@@ -119,8 +120,14 @@ export const Select: React.FC<Props> = ({
           }
         }}
       >
-        {option.icon}
-        {option.text || option.value}
+        {option.display ? (
+          option.display
+        ) : (
+          <>
+            {option.icon}
+            {option.text || option.value}
+          </>
+        )}
       </div>
     );
   };
@@ -133,7 +140,9 @@ export const Select: React.FC<Props> = ({
       } ${className || ''}`}
     >
       <div
-        className={`flex select-none items-center px-3 my-2 relative ${underLineClass}`}
+        className={`flex select-none items-center px-3 my-2 relative ${
+          outline ? '' : underLineClass
+        }`}
         style={{ height: `${_optionHeight}px` }}
         onClick={() => {
           setOpen(!open);
@@ -155,8 +164,14 @@ export const Select: React.FC<Props> = ({
             }`}
             key={options[selectedIndex].key}
           >
-            {options[selectedIndex].icon}
-            {options[selectedIndex].text || options[selectedIndex].value}
+            {options[selectedIndex].display ? (
+              options[selectedIndex].display
+            ) : (
+              <>
+                {options[selectedIndex].icon}
+                {options[selectedIndex].text || options[selectedIndex].value}
+              </>
+            )}
           </div>
         )}
 

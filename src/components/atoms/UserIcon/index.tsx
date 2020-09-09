@@ -7,6 +7,6 @@ interface Props {
 
 export const UserIcon: React.FC<Props> = ({ iconImg, className }) => {
   return (
-    <img className={`w-16 h-16 rounded-full ${className} `} src={iconImg}></img>
+    <img className={`w-12 h-12 rounded-full ${className} `} src={iconImg}></img>
   );
 };
