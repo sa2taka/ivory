@@ -3,12 +3,14 @@ import { User } from '@/types/db';
 import { getAllUsers } from '@/utils/DB';
 import { Select } from '@/components/atoms/Select';
 import { User as UserElement } from '../User';
+import { ClassNames } from '@emotion/core';
 
 interface Props {
   onSelect?: (user: User) => void;
+  className?: string;
 }
 
-export const SelectableUser: React.FC<Props> = ({ onSelect }) => {
+export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [index, setIndex] = useState<number | undefined>(undefined);
 
@@ -44,6 +46,7 @@ export const SelectableUser: React.FC<Props> = ({ onSelect }) => {
       }}
       optionHeight={64}
       select={index}
+      className={`${className ? className : ''}`}
     />
   );
 };

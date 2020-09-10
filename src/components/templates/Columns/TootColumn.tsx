@@ -7,7 +7,7 @@ interface Props {}
 export const TootColumn: React.FC<Props> = () => {
   return (
     <OneColumn>
-      <TootArea />
+      <TootArea className="mt-4" />
     </OneColumn>
   );
 };

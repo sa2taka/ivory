@@ -9,8 +9,6 @@
   min-width: 14em;
   min-height: 24px;
   display: inline-block;
-  box-shadow: none;
-  border-radius: 0.26rem;
   transition: border 0.1s ease, width 0.1s ease;
 
   &Label {
@@ -23,4 +21,12 @@
 
 .Option {
   transition: height 0.1s ease;
+}
+
+.Options {
+  background: var(--background-color);
+}
+
+.SelectShadow {
+  box-shadow: -2px 12px 50px -6px rgba(0, 0, 0, 0.5);
 }

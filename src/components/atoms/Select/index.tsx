@@ -135,56 +135,61 @@ export const Select: React.FC<Props> = ({
 
   return (
     <div
-      role="listbox"
-      className={`Select ${
-        outline ? borderClass : open ? underLineClass : ''
-      } ${className || ''}`}
+      className="wrapper"
+      style={{ height: `calc(${_optionHeight}px + 2em)` }}
     >
       <div
-        className={`flex select-none items-center px-3 my-2 relative ${
-          outline ? '' : underLineClass
-        }`}
-        style={{ height: `${_optionHeight}px` }}
-        onClick={() => {
-          setOpen(!open);
-        }}
+        role="listbox"
+        className={`Select absolute mt-5 z-30 rounded-t-lg ${
+          outline ? borderClass : ''
+        } ${className || ''} ${open ? 'SelectShadow' : ''}`}
       >
-        <label
-          style={{ color: labelColor }}
-          className={`absolute transform duration-100 ease-in-out ${
-            usingSelect !== undefined && `SelectLabel ${labelTransformClass}`
+        <div
+          className={`flex select-none items-center px-3 mt-2 relative rounded-t-lg ${
+            outline ? '' : underLineClass
           }`}
+          style={{ height: `${_optionHeight}px` }}
+          onClick={() => {
+            setOpen(!open);
+          }}
         >
-          {label}
-        </label>
-        {usingSelect !== undefined && (
-          <div
-            aria-live="polite"
-            className={`flex items-center ${
-              options[usingSelect].className || ''
+          <label
+            style={{ color: labelColor }}
+            className={`absolute transform duration-100 ease-in-out ${
+              usingSelect !== undefined && `SelectLabel ${labelTransformClass}`
             }`}
-            key={options[usingSelect].key}
           >
-            {options[usingSelect].display ? (
-              options[usingSelect].display
-            ) : (
-              <>
-                {options[usingSelect].icon}
-                {options[usingSelect].text || options[usingSelect].value}
-              </>
-            )}
-          </div>
-        )}
+            {label}
+          </label>
+          {usingSelect !== undefined && (
+            <div
+              aria-live="polite"
+              className={`flex items-center ${
+                options[usingSelect].className || ''
+              }`}
+              key={options[usingSelect].key}
+            >
+              {options[usingSelect].display ? (
+                options[usingSelect].display
+              ) : (
+                <>
+                  {options[usingSelect].icon}
+                  {options[usingSelect].text || options[usingSelect].value}
+                </>
+              )}
+            </div>
+          )}
 
-        <span className="flex-1"></span>
-        <FontAwesomeIcon icon={faCaretDown} />
-      </div>
-      <div
-        className={`${
-          open ? 'opacity-100' : 'opacity-0'
-        } select-none transition-opacity duration-75 ease`}
-      >
-        {renderOptions(options, open ? _optionHeight : 0)}
+          <span className="flex-1"></span>
+          <FontAwesomeIcon icon={faCaretDown} />
+        </div>
+        <div
+          className={`${
+            open ? 'opacity-100' : 'opacity-0'
+          } select-none transition-opacity duration-75 ease w-full Options rounded-b-lg`}
+        >
+          {renderOptions(options, open ? _optionHeight : 0)}
+        </div>
       </div>
     </div>
   );
