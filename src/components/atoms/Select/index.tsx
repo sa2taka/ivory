@@ -108,7 +108,7 @@ export const Select: React.FC<Props> = ({
       <div
         role={role}
         aria-live={ariaLive}
-        className={`transition-all ease-in-out duration-150 flex items-center px-3 ${hoverOptionClass} ${
+        className={`transition-all ease-in-out duration-150 flex items-center px-3 Option rounded-b-lg ${hoverOptionClass} ${
           option.className || ''
         }`}
         key={option.key}
@@ -140,9 +140,9 @@ export const Select: React.FC<Props> = ({
     >
       <div
         role="listbox"
-        className={`Select absolute mt-5 z-30 rounded-t-lg ${
+        className={`Select absolute mt-5 z-30 rounded-lg transition-colors duration-300 ease-in-out ${
           outline ? borderClass : ''
-        } ${className || ''} ${open ? 'SelectShadow' : ''}`}
+        } ${className || ''} ${open ? 'SelectShadow BackgroundMain' : ''}`}
       >
         <div
           className={`flex select-none items-center px-3 mt-2 relative rounded-t-lg ${
@@ -186,7 +186,7 @@ export const Select: React.FC<Props> = ({
         <div
           className={`${
             open ? 'opacity-100' : 'opacity-0'
-          } select-none transition-opacity duration-75 ease w-full Options rounded-b-lg`}
+          } select-none transition-opacity duration-75 ease w-full BackgroundMain rounded-b-lg`}
         >
           {renderOptions(options, open ? _optionHeight : 0)}
         </div>

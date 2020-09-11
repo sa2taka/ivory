@@ -12,19 +12,20 @@
   transition: border 0.1s ease, width 0.1s ease;
 
   &Label {
-    background: var(--background-color);
+    background: inherit;
     color: var(--primary-color) !important;
     font-size: 0.8em;
     text-align: center;
   }
 }
 
-.Option {
-  transition: height 0.1s ease;
+.BackgroundMain {
+  background: var(--background-color);
 }
 
-.Options {
-  background: var(--background-color);
+.Option {
+  transition: height 0.1s ease;
+  background: transparent;
 }
 
 .SelectShadow {

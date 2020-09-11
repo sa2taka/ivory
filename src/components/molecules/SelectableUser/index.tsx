@@ -3,7 +3,6 @@ import { User } from '@/types/db';
 import { getAllUsers } from '@/utils/DB';
 import { Select } from '@/components/atoms/Select';
 import { User as UserElement } from '../User';
-import { ClassNames } from '@emotion/core';
 
 interface Props {
   onSelect?: (user: User) => void;

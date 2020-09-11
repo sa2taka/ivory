@@ -6,7 +6,6 @@ import { Routing } from '@/components/pages/Routing';
 import { defaultTheme, Theme } from '@/types/theme';
 import { ThemeProvider, useTheme } from 'emotion-theming';
 import '@/utils/DB';
-import { isAuthorized } from './utils/Authorization/Mastodon/authorization';
 
 const app = document.getElementById('app');
 
@@ -28,6 +27,7 @@ function GlobalStyle() {
           color: theme.text,
           fontSize: theme.fontSize,
           fontFamily: theme.font,
+          height: '100vh',
           '--background-color': theme.background,
           '--text-color': theme.text,
           '--primary-color': theme.primary,

@@ -21,11 +21,7 @@ export const TootArea: React.FC<Props> = ({ className }) => {
       ? lighten(theme.background)
       : darken(theme.background),
   });
-  const textareaColorClass = css({
-    backgroundColor: isDark(theme.background)
-      ? darken(theme.background)
-      : lighten(theme.background),
-  });
+
   const primaryLightShadowClass = css({
     '&:focus-within': {
       boxShadow: `0 1px 6px 1px ${thin(theme.primary, 0.3)}`,
@@ -50,7 +46,7 @@ export const TootArea: React.FC<Props> = ({ className }) => {
       >
         {/* ネガティブマージンは無駄な隙間が生じることにより挿入。原因がわかれば取り除く */}
         <textarea
-          className={`resize-none p-2 rounded-t w-full -mb-2 TootArea-Textarea TootArea-InnerBottomShadow ${textareaColorClass}`}
+          className={`resize-none p-2 rounded-t w-full -mb-2 TootArea-Textarea TootArea-InnerBottomShadow`}
           onChange={handleInput}
           value={toot}
         ></textarea>

@@ -5,7 +5,7 @@ interface Props {}
 
 export const Main: React.FC<Props> = () => {
   return (
-    <div>
+    <div className="h-full flex">
       <TootColumn />
     </div>
   );
