@@ -8,6 +8,7 @@ import { Theme } from '@/types/theme';
 import { darken, isDark, lighten, thin } from '@/utils/Theme/color';
 import { useThinI18n } from '@/utils/thinI18n';
 import { SelectableUser } from '@/components/molecules/SelectableUser';
+import { createStatus } from '@/utils/Mastodon';
 interface Props {
   className?: string;
 }
@@ -36,6 +37,18 @@ export const TootArea: React.FC<Props> = ({ className }) => {
     setUser(user);
   }
 
+  function handleToot() {
+    console.log(user, toot);
+    if (user && toot.trim() !== '') {
+      createStatus(user, {
+        status: toot,
+      }).then((result) => {
+        console.log(result);
+        setToot('');
+      });
+    }
+  }
+
   const lang = useThinI18n();
 
   return (
@@ -57,7 +70,9 @@ export const TootArea: React.FC<Props> = ({ className }) => {
           <span className="mr-2">{500 - toot.length}</span>
         </div>
       </div>
-      <Button className="mt-2 self-end">{t[lang].toot}</Button>
+      <Button className="mt-2 self-end" onClick={handleToot}>
+        {t[lang].toot}
+      </Button>
     </div>
   );
 };

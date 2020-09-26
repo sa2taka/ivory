@@ -79,13 +79,16 @@ export async function createMastodonApp(uri: string, version: string) {
       if (!client.clientId || !client.clientSecret) {
         return Promise.reject('instance is not error');
       }
-      const domain = new URL(uri).hostname;
+      const url = new URL(uri);
+      const domain = url.hostname;
+      const origin = url.origin;
       const clientId = client.clientId;
       const clientSecret = client.clientSecret;
       const vapidKey = client.vapidKey;
       return saveClient({
         _id: clientId + domain,
         domain,
+        origin,
         version,
         clientId,
         clientSecret,
@@ -212,7 +215,9 @@ export function fetchUserInfo(
       return i.verifyCredentials();
     })
     .then((credentials) => {
-      const domain = new URL(baseUrl).hostname;
+      const url = new URL(baseUrl);
+      const domain = url.hostname;
+      const origin = url.origin;
       const userId = credentials.id;
 
       setAuth(true);
@@ -220,6 +225,7 @@ export function fetchUserInfo(
       return saveUser({
         _id: userId + domain,
         domain,
+        origin,
         userId,
         userInfo: credentials,
         accessToken,
