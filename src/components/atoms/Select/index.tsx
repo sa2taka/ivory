@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './index.scss';
 import { WaiArea } from '@/types/waiAria';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,7 @@ import { css } from 'emotion';
 import { useTheme } from 'emotion-theming';
 import { Theme } from '@/types/theme';
 import { darken, isDark, lighten, thin } from '@/utils/Theme/color';
+import { useOutsideClickDetector } from '@/components/util/outsideClickDetector';
 
 export interface Option {
   key: string;
@@ -41,6 +42,11 @@ export const Select: React.FC<Props> = ({
   const theme = useTheme<Theme>();
   const _optionHeight = optionHeight || 42;
   const usingSelect = select !== undefined ? select : localIndex;
+
+  const wrapperRef = useRef(null);
+  useOutsideClickDetector(wrapperRef, () => {
+    setOpen(false);
+  });
 
   const borderColor = isDark(theme.background)
     ? lighten(theme.background)
@@ -137,6 +143,7 @@ export const Select: React.FC<Props> = ({
     <div
       className="wrapper"
       style={{ height: `calc(${_optionHeight}px + 2em)` }}
+      ref={wrapperRef}
     >
       <div
         role="listbox"
