@@ -124,3 +124,6 @@ temp/
 data.db
 data.db~
 data/
+
+user/
+client/
