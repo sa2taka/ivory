@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import './index.scss';
 import { Colors, Theme } from '@/types/theme';
 import { withTheme } from 'emotion-theming';
@@ -36,28 +36,37 @@ const _Button: React.FC<Props> = ({
   effectSize,
   effectColor,
 }) => {
-  let mainColor: string = color || 'primary';
-  let hoverClass: string = color || 'primary';
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      if (disable) {
+        return;
+      }
+      if (onClick) {
+        onClick(event);
+      }
+    },
+    [disable, onClick]
+  );
 
-  const handleClick = (event: React.MouseEvent) => {
-    if (disable) {
-      return;
+  const mainColor = useMemo(() => {
+    if (!color || color === 'primary' || color === 'secondary') {
+      return color || 'primary';
+    } else {
+      return color + '-500';
     }
-    if (onClick) {
-      onClick(event);
-    }
-  };
+  }, [color]);
 
-  if (mainColor === 'primary' || mainColor === 'secondary') {
-    hoverClass = css({
-      '&:hover': {
-        background: lighten(theme.primary, 5),
-      },
-    });
-  } else {
-    mainColor = color + '-500';
-    hoverClass = 'hover:bg-' + color + '-400';
-  }
+  const hoverClass = useMemo(() => {
+    if (!color || color === 'primary' || color === 'secondary') {
+      return css({
+        '&:hover': {
+          background: lighten(theme.primary, 5),
+        },
+      });
+    } else {
+      return 'hover:bg-' + color + '-400';
+    }
+  }, [theme.primary, color]);
 
   const ref = useRef({} as HTMLButtonElement);
   const { handleMouseDown, handleMouseUp, effectStyle } = useRippleEffect(ref);

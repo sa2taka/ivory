@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './index.scss';
 import { Theme } from '@/types/theme';
 import { useTheme } from 'emotion-theming';
@@ -11,11 +11,15 @@ interface Props {
 export const Loading: React.FC<Props> = () => {
   const theme = useTheme<Theme>();
 
-  const backgroundStyle = css({
-    'div.loading-peace': {
-      background: theme.primary,
-    },
-  });
+  const backgroundStyle = useMemo(
+    () =>
+      css({
+        'div.loading-peace': {
+          background: theme.primary,
+        },
+      }),
+    [theme.primary]
+  );
   return (
     <div className={`loading-icon ${backgroundStyle}`}>
       <div className="loading-peace"></div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { InstanceEditor } from './InstanceEditor';
 import { Instance } from 'masto';
 import { Button } from '@/components/atoms/Button';
@@ -20,7 +20,7 @@ export const InstanceEntrance: React.FC<Props> = () => {
   const [timer, setTimer] = useState<any | null>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const history = useHistory();
 
-  const handleInput = (url: string) => {
+  const handleInput = useCallback((url: string) => {
     setInstanceInfo(null);
     setLoading(true);
     setInstanceUrl(url);
@@ -40,19 +40,19 @@ export const InstanceEntrance: React.FC<Props> = () => {
           });
       }, 400)
     );
-  };
+  }, []);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (instanceInfo) {
       manageAuthentication(instanceInfo.uri, instanceInfo.version)
         .then(({ token, version }) => {
           return fetchUserInfo(instanceUrl, version, token);
         })
-        .then((user) => {
+        .then(() => {
           history.push('/');
         });
     }
-  };
+  }, []);
 
   return (
     <>

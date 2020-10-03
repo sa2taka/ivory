@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { User } from '@/types/db';
 import { getAllUsers } from '@/utils/DB';
 import { Select } from '@/components/atoms/Select';
@@ -13,7 +13,7 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [index, setIndex] = useState<number | undefined>(undefined);
 
-  if (users.length === 0) {
+  useEffect(() => {
     getAllUsers().then((_users) => {
       setUsers(_users);
       if (onSelect) {
@@ -21,9 +21,9 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
       }
       setIndex(0);
     });
-  }
+  }, []);
 
-  const getUserOptions = () => {
+  const getUserOptions = useCallback(() => {
     return users.map((user) => {
       return {
         key: user.userId,
@@ -31,7 +31,7 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
         display: <UserElement userInfo={user.userInfo} />,
       };
     });
-  };
+  }, []);
 
   return (
     <Select

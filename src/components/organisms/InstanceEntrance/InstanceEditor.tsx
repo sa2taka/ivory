@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 
 interface Props {
   instanceUrl?: string;
@@ -12,12 +12,12 @@ export const InstanceEditor: React.FC<Props> = ({
   className,
 }) => {
   let url = instanceUrl || '';
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
       onChange(event.target.value);
     }
     url = event.target.value;
-  };
+  }, []);
 
   return (
     <div className={`${className} md:flex md:items-center mb-6`}>

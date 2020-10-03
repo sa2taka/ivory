@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import './index.scss';
 import { User as IUser } from '@/types/db';
 import { Button } from '@/components/atoms/Button';
@@ -17,27 +17,35 @@ export const TootArea: React.FC<Props> = ({ className }) => {
   const [toot, setToot] = useState('');
   const [user, setUser] = useState<IUser | null>(null);
   const theme = useTheme<Theme>();
-  const footerColorClass = css({
-    backgroundColor: isDark(theme.background)
-      ? lighten(theme.background)
-      : darken(theme.background),
-  });
+  const footerColorClass = useMemo(
+    () =>
+      css({
+        backgroundColor: isDark(theme.background)
+          ? lighten(theme.background)
+          : darken(theme.background),
+      }),
+    []
+  );
 
-  const primaryLightShadowClass = css({
-    '&:focus-within': {
-      boxShadow: `0 1px 6px 1px ${thin(theme.primary, 0.3)}`,
-    },
-  });
+  const primaryLightShadowClass = useMemo(
+    () =>
+      css({
+        '&:focus-within': {
+          boxShadow: `0 1px 6px 1px ${thin(theme.primary, 0.3)}`,
+        },
+      }),
+    []
+  );
 
-  function handleInput(event: ChangeEvent<HTMLTextAreaElement>) {
+  const handleInput = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setToot(event.target.value);
-  }
+  }, []);
 
-  function handleSelect(user: IUser) {
+  const handleSelect = useCallback((user: IUser) => {
     setUser(user);
-  }
+  }, []);
 
-  function handleToot() {
+  const handleToot = useCallback(() => {
     console.log(user, toot);
     if (user && toot.trim() !== '') {
       createStatus(user, {
@@ -47,7 +55,7 @@ export const TootArea: React.FC<Props> = ({ className }) => {
         setToot('');
       });
     }
-  }
+  }, []);
 
   const lang = useThinI18n();
 

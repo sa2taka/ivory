@@ -5,7 +5,7 @@ interface Props {}
 
 export const LoginMatodon: React.FC<Props> = () => {
   return (
-    <main className="w-auto mx-auto flex items-center flex-col w-4/5 mt-16">
+    <main className="mx-auto flex items-center flex-col w-4/5 mt-16">
       <InstanceEntrance />
     </main>
   );

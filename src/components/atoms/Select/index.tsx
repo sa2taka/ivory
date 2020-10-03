@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import './index.scss';
 import { WaiArea } from '@/types/waiAria';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -58,86 +58,108 @@ export const Select: React.FC<Props> = ({
     ? lighten(theme.text, 20)
     : darken(theme.text, 20);
 
-  const underLineClass = css({
-    '&::before': {
-      bottom: '-1px',
-      content: "''",
-      left: '0',
-      position: 'absolute',
-      transition: '.3s ease',
-      width: '100%',
-      borderStyle: 'solid',
-      borderWidth: 'thin 0 0',
-      borderColor: borderColor,
-    },
-    '&:hover::before': {
-      borderColor: `${focusedBorderColor}`,
-    },
-    '&:focus-within::before': {
-      borderColor: `${thin(theme.primary, 0.3)}`,
-    },
-  });
+  const underLineClass = useMemo(
+    () =>
+      css({
+        '&::before': {
+          bottom: '-1px',
+          content: "''",
+          left: '0',
+          position: 'absolute',
+          transition: '.3s ease',
+          width: '100%',
+          borderStyle: 'solid',
+          borderWidth: 'thin 0 0',
+          borderColor: borderColor,
+        },
+        '&:hover::before': {
+          borderColor: `${focusedBorderColor}`,
+        },
+        '&:focus-within::before': {
+          borderColor: `${thin(theme.primary, 0.3)}`,
+        },
+      }),
+    [borderColor, focusedBorderColor, theme.primary]
+  );
 
-  const borderClass = css({
-    border: `1px solid ${borderColor}`,
-    '&:hover': {
-      border: `1px solid ${focusedBorderColor}`,
+  const borderClass = useMemo(
+    () =>
+      css({
+        border: `1px solid ${borderColor}`,
+        '&:hover': {
+          border: `1px solid ${focusedBorderColor}`,
+        },
+        '&:focus-within': {
+          border: `1px solid ${thin(theme.primary, 0.3)}`,
+        },
+      }),
+    [borderColor, focusedBorderColor, theme.primary]
+  );
+
+  const labelTransformClass = useMemo(
+    () =>
+      css({
+        transform: `translateX(-4px) translateY(calc(${-_optionHeight}px + 1em))`,
+      }),
+    [_optionHeight]
+  );
+
+  const hoverOptionClass = useMemo(
+    () =>
+      css({
+        '&:hover': {
+          backgroundColor: borderColor,
+        },
+      }),
+    [borderColor]
+  );
+
+  const renderOptions = useCallback(
+    (options: Array<Option>, height: number) => {
+      return options.map((option, index) => {
+        return renderOption(option, index, height, { role: 'option' });
+      });
     },
-    '&:focus-within': {
-      border: `1px solid ${thin(theme.primary, 0.3)}`,
+    []
+  );
+
+  const renderOption = useCallback(
+    (
+      option: Option,
+      index: number,
+      height: number,
+      { role, ariaLive }: WaiArea
+    ) => {
+      return (
+        <div
+          role={role}
+          aria-live={ariaLive}
+          className={`transition-all ease-in-out duration-150 flex items-center px-3 Option rounded-b-lg ${hoverOptionClass} ${
+            option.className || ''
+          }`}
+          key={option.key}
+          style={{ height: `${height}px` }}
+          onClick={() => {
+            if (open) {
+              setLocalIndex(index);
+              setOpen(false);
+              onSelect && onSelect(index);
+            }
+          }}
+        >
+          {option.display ? (
+            option.display
+          ) : (
+            <>
+              {option.icon}
+              {option.text || option.value}
+            </>
+          )}
+        </div>
+      );
     },
-  });
-
-  const labelTransformClass = css({
-    transform: `translateX(-4px) translateY(calc(${-_optionHeight}px + 1em))`,
-  });
-
-  const hoverOptionClass = css({
-    '&:hover': {
-      backgroundColor: borderColor,
-    },
-  });
-
-  const renderOptions = (options: Array<Option>, height: number) => {
-    return options.map((option, index) => {
-      return renderOption(option, index, height, { role: 'option' });
-    });
-  };
-
-  const renderOption = (
-    option: Option,
-    index: number,
-    height: number,
-    { role, ariaLive }: WaiArea
-  ) => {
-    return (
-      <div
-        role={role}
-        aria-live={ariaLive}
-        className={`transition-all ease-in-out duration-150 flex items-center px-3 Option rounded-b-lg ${hoverOptionClass} ${
-          option.className || ''
-        }`}
-        key={option.key}
-        style={{ height: `${height}px` }}
-        onClick={() => {
-          if (open) {
-            setLocalIndex(index);
-            setOpen(false);
-            onSelect && onSelect(index);
-          }
-        }}
-      >
-        {option.display ? (
-          option.display
-        ) : (
-          <>
-            {option.icon}
-            {option.text || option.value}
-          </>
-        )}
-      </div>
-    );
-  };
+    []
+  );
 
   return (
     <div
