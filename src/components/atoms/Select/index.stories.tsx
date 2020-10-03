@@ -23,6 +23,7 @@ const userInfo: any = {
     'https://s3-ap-northeast-1.amazonaws.com/mstdn-workers/accounts/avatars/000/000/424/original/b762fe018ee65ae2.jpeg',
   displayName: '( ੭˙꒳ ˙)੭とっぷら',
   acct: '@t0p_l1ght@mstdn-workers.com',
+  url: 'https://mstdn-workers.com',
 };
 
 const userOptions: Array<Option> = [
@@ -31,12 +32,16 @@ const userOptions: Array<Option> = [
 ];
 export const Select = () => (
   <>
-    <Component label="ほげほげ" options={options} outline className="m-4" />
-
     <Component
       label="ユーザー"
       options={userOptions}
       optionHeight={56}
+      className="m-4"
+    />
+    <Component
+      label="リストボックス"
+      options={options}
+      outline
       className="m-4"
     />
   </>

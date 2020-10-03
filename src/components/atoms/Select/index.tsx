@@ -75,6 +75,9 @@ export const Select: React.FC<Props> = ({
         '&:hover::before': {
           borderColor: `${focusedBorderColor}`,
         },
+        '&:focus::before': {
+          borderColor: `${thin(theme.primary, 0.3)}`,
+        },
         '&:focus-within::before': {
           borderColor: `${thin(theme.primary, 0.3)}`,
         },
@@ -114,6 +117,17 @@ export const Select: React.FC<Props> = ({
     [borderColor]
   );
 
+  const toggleOpen = useCallback((event: React.MouseEvent) => {
+    // 開いているときはOptionをクリックしていなければ閉じる
+    if (
+      !open ||
+      !event.target ||
+      !(event.target as Element).closest('.Option')
+    ) {
+      setOpen((prev) => !prev);
+    }
+  }, []);
+
   const renderOptions = useCallback(
     (options: Array<Option>, height: number) => {
       return options.map((option, index) => {
@@ -130,22 +144,25 @@ export const Select: React.FC<Props> = ({
       height: number,
       { role, ariaLive }: WaiArea
     ) => {
+      const handleClick = useCallback(
+        (event: React.MouseEvent<HTMLElement>) => {
+          event.stopPropagation();
+          setLocalIndex(index);
+          setOpen(false);
+          onSelect && onSelect(index);
+        },
+        [onSelect]
+      );
       return (
         <div
           role={role}
           aria-live={ariaLive}
-          className={`transition-all ease-in-out duration-150 flex items-center px-3 Option rounded-b-lg ${hoverOptionClass} ${
+          className={`transition-all ease-in-out duration-150 flex items-center px-3 Option ${hoverOptionClass} ${
             option.className || ''
           }`}
           key={option.key}
           style={{ height: `${height}px` }}
-          onClick={() => {
-            if (open) {
-              setLocalIndex(index);
-              setOpen(false);
-              onSelect && onSelect(index);
-            }
-          }}
+          onClick={handleClick}
         >
           {option.display ? (
             option.display
@@ -158,17 +175,18 @@ export const Select: React.FC<Props> = ({
         </div>
       );
     },
-    []
+    [onSelect]
   );
 
   return (
     <div
-      className="wrapper"
+      className={`relative ${open ? 'z-40' : ''}`}
       style={{ height: `calc(${_optionHeight}px + 2em)` }}
       ref={wrapperRef}
     >
       <div
         role="listbox"
+        onClick={toggleOpen}
         className={`Select absolute mt-5 z-30 rounded-lg transition-colors duration-300 ease-in-out ${
           outline ? borderClass : ''
         } ${className || ''} ${open ? 'SelectShadow BackgroundMain' : ''}`}
@@ -178,9 +196,6 @@ export const Select: React.FC<Props> = ({
             outline ? '' : underLineClass
           }`}
           style={{ height: `${_optionHeight}px` }}
-          onClick={() => {
-            setOpen(!open);
-          }}
         >
           <label
             style={{ color: labelColor }}
@@ -214,7 +229,7 @@ export const Select: React.FC<Props> = ({
         </div>
         <div
           className={`${
-            open ? 'opacity-100' : 'opacity-0'
+            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
           } select-none transition-opacity duration-75 ease w-full BackgroundMain rounded-b-lg`}
         >
           {renderOptions(options, open ? _optionHeight : 0)}
