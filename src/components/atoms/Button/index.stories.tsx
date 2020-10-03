@@ -23,5 +23,13 @@ export const Button = () => (
     >
       {text('Disable Button Text', 'Disabled')}
     </Component>
+    <Component
+      className="mx-4 my-4"
+      theme={defaultTheme}
+      color={text('ButtonColor', 'primary') as Colors}
+      ripple
+    >
+      {text('Ripple Button Text', 'Ripple')}
+    </Component>
   </>
 );

@@ -48,6 +48,12 @@ module.exports = {
       loader: 'file-loader?name=[name].[ext]',
     });
 
+    config.module.rules.push({
+      test: /.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
+
     config.resolve.alias['@'] = path.resolve(__dirname, '../src');
     config.resolve.alias['public'] = path.resolve(__dirname, '../public');
     config.resolve.extensions.push('.ts', '.tsx');

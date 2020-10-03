@@ -13,7 +13,7 @@ import { useHistory } from 'react-router';
 interface Props {}
 
 export const InstanceEntrance: React.FC<Props> = () => {
-  const [instanceUrl, setInstanceUrl] = useState('https://mstdn-workers.co');
+  const [instanceUrl, setInstanceUrl] = useState('https://mastodon.sa2taka.co');
   const [instanceInfo, setInstanceInfo] = useState<Instance | null>(null);
   const [loading, setLoading] = useState(false);
   // NodeJS.Timer
