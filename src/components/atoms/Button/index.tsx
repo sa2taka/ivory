@@ -61,10 +61,16 @@ const _Button: React.FC<Props> = ({
   }, [color]);
 
   const hoverClass = useMemo(() => {
-    if (!color || color === 'primary' || color === 'secondary') {
+    if (!color || color === 'primary') {
       return css({
         '&:hover': {
           background: lighten(theme.primary, 5),
+        },
+      });
+    } else if (color === 'secondary') {
+      return css({
+        '&:hover': {
+          background: lighten(theme.secondary, 5),
         },
       });
     } else {

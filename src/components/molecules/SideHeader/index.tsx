@@ -20,12 +20,12 @@ export function SideHeader() {
   );
 
   return (
-    <header
-      className={`SideHeader w-16 h-screen flex flex-row justify-center ${backgroundClass}`}
-    >
-      <Button ripple icon className="mt-auto mb-4">
-        <FaCog />
-      </Button>
+    <header className={`SideHeader w-16 h-screen ${backgroundClass}`}>
+      <nav className="flex flex-row justify-center h-full w-full">
+        <Button ripple icon className="mt-auto mb-4" color="secondary">
+          <FaCog />
+        </Button>
+      </nav>
     </header>
   );
 }
