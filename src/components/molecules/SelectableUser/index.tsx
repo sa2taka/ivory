@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { User } from '@/types/db';
 import { getAllUsers } from '@/utils/DB';
-import { Select } from '@/components/atoms/Select';
+import { Option, Select } from '@/components/atoms/Select';
 import { User as UserElement } from '../User';
 
 interface Props {
@@ -12,10 +12,20 @@ interface Props {
 export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [index, setIndex] = useState<number | undefined>(undefined);
+  const [options, setOptions] = useState<Option[]>([]);
 
   useEffect(() => {
     getAllUsers().then((_users) => {
       setUsers(_users);
+      setOptions(
+        users.map((user) => {
+          return {
+            key: user.userId,
+            value: user.userId,
+            display: <UserElement userInfo={user.userInfo} />,
+          };
+        })
+      );
       if (onSelect) {
         onSelect(_users[0]);
       }
@@ -23,26 +33,21 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
     });
   }, []);
 
-  const getUserOptions = useCallback(() => {
-    return users.map((user) => {
-      return {
-        key: user.userId,
-        value: user.userId,
-        display: <UserElement userInfo={user.userInfo} />,
-      };
-    });
-  }, []);
+  const handleSelect = useCallback(
+    (index) => {
+      setIndex(index);
+      if (users[index] && onSelect) {
+        onSelect(users[index]);
+      }
+    },
+    [users]
+  );
 
   return (
     <Select
       label="ユーザー"
-      options={getUserOptions()}
-      onSelect={(index) => {
-        setIndex(index);
-        if (users[index] && onSelect) {
-          onSelect(users[index]);
-        }
-      }}
+      options={options}
+      onSelect={handleSelect}
       optionHeight={64}
       select={index}
       className={`${className ? className : ''}`}
