@@ -13,8 +13,11 @@ export const User: React.FC<Props> = ({ userInfo }) => {
   const domain = url.hostname;
   return (
     <div className="grid user-icon-grid-template-cols gap-x-2">
-      <UserIcon iconImg={userInfo.avatar} className="row-span-2" />
-      <span className="row-span-1 col-start-2 mt-2 text-lg font-semibold">
+      <div className="row-span-2 relative m-auto">
+        <UserIcon iconImg={userInfo.avatar} />
+      </div>
+
+      <span className="row-span-1 col-start-2 mt-2 text-base font-semibold w-full overflow-hidden whitespace-no-wrap">
         {userInfo.displayName}
       </span>
       <span className="row-span-1 col-start-2 mb-2 mt-1 align-top text-xs">

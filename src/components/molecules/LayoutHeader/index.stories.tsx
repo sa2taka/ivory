@@ -1,6 +1,6 @@
 import React from 'react';
 import { LayoutHeader as Component } from './index';
 export default {
-  title: 'organisms',
+  title: 'molecules',
 };
 export const LayoutHeader = () => <Component />;

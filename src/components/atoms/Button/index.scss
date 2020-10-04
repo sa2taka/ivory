@@ -1,6 +1,13 @@
 .ivory {
   &-button {
-    min-width: 64px;
+    min-width: 32px;
+    &-small {
+      min-width: 24px;
+    }
+
+    &-large {
+      min-width: 48px;
+    }
   }
 }
 

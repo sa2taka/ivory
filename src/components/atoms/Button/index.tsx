@@ -19,6 +19,8 @@ interface Props {
   ripple?: boolean;
   effectSize?: number;
   effectColor?: string;
+  small?: boolean;
+  large?: boolean;
 }
 
 const _Button: React.FC<Props> = ({
@@ -26,7 +28,7 @@ const _Button: React.FC<Props> = ({
   // round,
   // outline,
   // fab,
-  // icon,
+  icon,
   children,
   className,
   theme,
@@ -35,6 +37,8 @@ const _Button: React.FC<Props> = ({
   ripple,
   effectSize,
   effectColor,
+  small,
+  large,
 }) => {
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
@@ -75,21 +79,38 @@ const _Button: React.FC<Props> = ({
   const effectClass = css({
     display: 'block',
     position: 'absolute',
-    'pointer-events': 'none',
+    pointerEvents: 'none',
     width: _effectSize * 2 + 'px',
     height: _effectSize * 2 + 'px',
     left: _effectSize * -1 + 'px',
     top: _effectSize * -1 + 'px',
-    'border-radius': _effectSize + 'px',
-    'background-color': _effectColor || '#fff',
+    borderRadius: _effectSize + 'px',
+    backgroundColor: _effectColor || '#fff',
   });
+
+  const iconsClasses = useMemo(() => {
+    let classes = '';
+    if (small) {
+      classes += 'w-6 h-6';
+    } else if (large) {
+      classes += 'w-16 h-16';
+    } else {
+      classes += 'w-12 h-12';
+    }
+    classes += ' rounded-full';
+    return classes;
+  }, [small, large]);
 
   return (
     <button
       ref={ref}
-      className={`${className} bg-${mainColor || 'primary'} ${hoverClass} ${
+      className={`${className || ''} bg-${
+        mainColor || 'primary'
+      } ${hoverClass} ${
         disable ? 'btn-disabled' : ''
-      } relative overflow-hidden font-bold py-2 px-4 rounded hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none`}
+      } relative overflow-hidden font-bold py-2 px-4 ${
+        icon ? iconsClasses : 'rounded'
+      } hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none flex place-items-center`}
       onClick={handleClick}
       onMouseDown={ripple ? handleMouseDown : undefined}
       onMouseUp={ripple ? handleMouseUp : undefined}

@@ -134,7 +134,7 @@ export const Select: React.FC<Props> = ({
         return renderOption(option, index, height, { role: 'option' });
       });
     },
-    []
+    [options]
   );
 
   const renderOption = useCallback(
@@ -144,15 +144,12 @@ export const Select: React.FC<Props> = ({
       height: number,
       { role, ariaLive }: WaiArea
     ) => {
-      const handleClick = useCallback(
-        (event: React.MouseEvent<HTMLElement>) => {
-          event.stopPropagation();
-          setLocalIndex(index);
-          setOpen(false);
-          onSelect && onSelect(index);
-        },
-        [onSelect]
-      );
+      const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        setLocalIndex(index);
+        setOpen(false);
+        onSelect && onSelect(index);
+      };
       return (
         <div
           role={role}
@@ -175,7 +172,7 @@ export const Select: React.FC<Props> = ({
         </div>
       );
     },
-    [onSelect]
+    [onSelect, options]
   );
 
   return (

@@ -18,7 +18,7 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
     getAllUsers().then((_users) => {
       setUsers(_users);
       setOptions(
-        users.map((user) => {
+        _users.map((user) => {
           return {
             key: user.userId,
             value: user.userId,
@@ -40,7 +40,7 @@ export const SelectableUser: React.FC<Props> = ({ onSelect, className }) => {
         onSelect(users[index]);
       }
     },
-    [users]
+    [users, index, options]
   );
 
   return (
