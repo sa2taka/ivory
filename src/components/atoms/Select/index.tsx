@@ -227,7 +227,7 @@ export const Select: React.FC<Props> = ({
         <div
           className={`${
             open ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          } select-none transition-opacity duration-75 ease w-full BackgroundMain rounded-b-lg`}
+          } select-none transition-opacity duration-75 ease w-full BackgroundMain rounded-b-lg overflow-hidden`}
         >
           {renderOptions(options, open ? _optionHeight : 0)}
         </div>
