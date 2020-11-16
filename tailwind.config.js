@@ -10,6 +10,7 @@ module.exports = {
   },
   variants: {
     boxShadow: ['responsive', 'hover', 'focus', 'active', 'focus-within'],
+    borderRadius: ['responsive'],
   },
   plugins: [],
 };

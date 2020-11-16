@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { PrivateRoute } from '@/utils/PrivateRoute';
 import { Main } from './Main';
+import { Settings } from './Settings';
 import { GettingStarted } from './GettingStarted';
 import { LoginMatodon } from './LoginMatodon';
 
@@ -16,6 +17,9 @@ export const Routing: React.FC<Props> = () => {
       <Route path="/login-mastodon">
         <LoginMatodon />
       </Route>
+      <PrivateRoute path="/settings">
+        <Settings />
+      </PrivateRoute>
       <PrivateRoute path="/" exact>
         <Main />
       </PrivateRoute>
