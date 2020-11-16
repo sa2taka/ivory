@@ -1,9 +1,8 @@
 import { TitleLogo } from '@/components/atoms/TitleLogo';
 import { settings } from '@/items/settings';
-import { Theme } from '@/types/theme';
 import { darken, isDark, lighten } from '@/utils/Theme/color';
-import { css } from 'emotion';
-import { useTheme } from 'emotion-theming';
+import { css } from '@emotion/css';
+import { useTheme } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import { FaAngleLeft } from 'react-icons/fa';
 import './index.scss';
@@ -16,7 +15,7 @@ interface Props {
 }
 
 export const SettingMenu: React.FC<Props> = ({ treePath }) => {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
 
   const backgroundClass = useMemo(
     () =>

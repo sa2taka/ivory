@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import './index.scss';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { isDark, lighten, darken } from '@/utils/Theme/color';
-import { useTheme } from 'emotion-theming';
-import { Theme } from '@/types/theme';
+import { useTheme } from '@emotion/react';
 
 interface Props {
   className?: string;
 }
 
 export const OneColumn: React.FC<Props> = ({ children, className }) => {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   const backgroundClass = useMemo(
     () =>
       css({

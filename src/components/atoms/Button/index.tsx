@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import './index.scss';
 import { Colors, Theme } from '@/types/theme';
-import { withTheme } from 'emotion-theming';
-import { css } from 'emotion';
+import { withTheme } from '@emotion/react';
+import { css } from '@emotion/css';
 import { lighten } from '@/utils/Theme/color';
 import { useRippleEffect } from './useRipple';
 

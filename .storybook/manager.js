@@ -3,7 +3,7 @@ import { themes, Global, css } from '@storybook/theming';
 import { addParameters, addDecorator } from '@storybook/react';
 
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { defaultTheme } from '../src/types/theme';
 import { ThinI18nProvider } from '../src/utils/thinI18n';
 

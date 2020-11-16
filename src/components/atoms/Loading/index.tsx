@@ -1,15 +1,14 @@
 import React, { useMemo } from 'react';
 import './index.scss';
-import { Theme } from '@/types/theme';
-import { useTheme } from 'emotion-theming';
-import { css } from 'emotion';
+import { useTheme } from '@emotion/react';
+import { css } from '@emotion/css';
 
 interface Props {
   columnSize?: number;
 }
 
 export const Loading: React.FC<Props> = () => {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
 
   const backgroundStyle = useMemo(
     () =>

@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Global, css } from '@emotion/core';
+import { ThemeProvider, useTheme, Global, css } from '@emotion/react';
 import '@/styles/tailwind.css';
 import { Routing } from '@/components/pages/Routing';
 import { defaultTheme, Theme } from '@/types/theme';
-import { ThemeProvider, useTheme } from 'emotion-theming';
 import '@/utils/DB';
 
 const app = document.getElementById('app');
@@ -18,7 +17,7 @@ ReactDOM.render(
 );
 
 function GlobalStyle() {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   return (
     <Global
       styles={css({

@@ -2,9 +2,8 @@ import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import './index.scss';
 import { User as IUser } from '@/types/db';
 import { Button } from '@/components/atoms/Button';
-import { css } from 'emotion';
-import { useTheme } from 'emotion-theming';
-import { Theme } from '@/types/theme';
+import { css } from '@emotion/css';
+import { useTheme } from '@emotion/react';
 import { darken, isDark, lighten, thin } from '@/utils/Theme/color';
 import { useThinI18n } from '@/utils/thinI18n';
 import { SelectableUser } from '@/components/molecules/SelectableUser';
@@ -16,7 +15,7 @@ interface Props {
 export const TootArea: React.FC<Props> = ({ className }) => {
   const [toot, setToot] = useState('');
   const [user, setUser] = useState<IUser | null>(null);
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   const footerColorClass = useMemo(
     () =>
       css({

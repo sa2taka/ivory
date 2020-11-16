@@ -1,8 +1,8 @@
 import React from 'react';
 import { GettingStarted as Component } from './GettingStarted';
-import { Global, css } from '@emotion/core';
+import { Global, css } from '@emotion/react';
 import { defaultTheme } from '@/types/theme';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import { HashRouter as Router } from 'react-router-dom';
 export default {
   title: 'pages',

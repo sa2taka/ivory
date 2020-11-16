@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import './index.scss';
 
 import { TreeElement, TreeItem } from '@/components/molecules/Tree/TreeItem';
-import { css } from 'emotion';
 
 interface Props {
   items: TreeElements;

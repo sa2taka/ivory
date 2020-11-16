@@ -1,7 +1,6 @@
-import { Theme } from '@/types/theme';
 import { darken, isDark, lighten } from '@/utils/Theme/color';
-import { css } from 'emotion';
-import { useTheme } from 'emotion-theming';
+import { css } from '@emotion/css';
+import { useTheme } from '@emotion/react';
 import React, { useMemo, useCallback } from 'react';
 import './index.scss';
 import { FaCog } from 'react-icons/fa';
@@ -11,7 +10,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 const component: React.FC<RouteComponentProps> = function SideHeader({
   history,
 }) {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   const backgroundClass = useMemo(
     () =>
       css({

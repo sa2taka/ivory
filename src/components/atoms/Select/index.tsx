@@ -3,9 +3,8 @@ import './index.scss';
 import { WaiArea } from '@/types/waiAria';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { css } from 'emotion';
-import { useTheme } from 'emotion-theming';
-import { Theme } from '@/types/theme';
+import { css } from '@emotion/css';
+import { useTheme } from '@emotion/react';
 import { darken, isDark, lighten, thin } from '@/utils/Theme/color';
 import { useOutsideClickDetector } from '@/components/util/outsideClickDetector';
 
@@ -39,7 +38,7 @@ export const Select: React.FC<Props> = ({
 }) => {
   const [localIndex, setLocalIndex] = useState<number | undefined>(undefined);
   const [open, setOpen] = useState(false);
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   const _optionHeight = optionHeight || 42;
   const usingSelect = select !== undefined ? select : localIndex;
 

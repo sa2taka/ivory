@@ -45,7 +45,7 @@ module.exports = {
 
     config.module.rules.push({
       test: /\.(jpeg|png|gif|svg)$/,
-      loader: 'file-loader?name=[name].[ext]',
+      use: [{ loader: 'file-loader?name=[name].[ext]' }],
     });
 
     config.module.rules.push({
