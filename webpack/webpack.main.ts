@@ -29,4 +29,10 @@ module.exports = {
     },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
 };

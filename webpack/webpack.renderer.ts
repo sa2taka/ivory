@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.(jpeg|png|gif|svg)$/,
-        use: [{ loader: 'file-loader?name=[name].[ext]' }],
+        type: 'asset/resource',
       },
     ],
   },
@@ -47,4 +47,10 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
 };
