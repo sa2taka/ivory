@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button is rendered 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<_Button
+  theme={Object {}}
+>
+  button
+</_Button>
 `;

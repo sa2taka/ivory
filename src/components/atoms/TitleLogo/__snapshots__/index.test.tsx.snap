@@ -2,7 +2,7 @@
 
 exports[`TitleLogo is rendered 1`] = `
 <div
-  className="flex ml-4 items-center"
+  className="flex items-center undefined"
 >
   <img
     className="h-8 w-8"

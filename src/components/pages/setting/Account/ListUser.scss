@@ -1,0 +1,37 @@
+.ListUserAnimationBezier {
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0, 0.94, 0.34, 1);
+}
+
+.ListUserWidth {
+  width: 480px;
+}
+
+.IconWidth {
+  width: 48px;
+}
+
+.MoveLeft:hover {
+  transform: translateX(-120px);
+}
+
+.ListUserButtonArea {
+  transform: translateX(140px);
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.4s;
+}
+
+.ListUser:hover {
+  & .MoveLeft {
+    transform: translateX(-20%);
+  }
+
+  & .ListUserButtonArea {
+    opacity: 1;
+  }
+}
+
+.ListUserAnimationTranslate {
+  transition-property: transform;
+}

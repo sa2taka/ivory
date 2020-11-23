@@ -38,7 +38,7 @@ export const SettingMenu: React.FC<Props> = ({ treePath }) => {
   }, []);
 
   return (
-    <header className={`w-16 h-screen SettingMenu ${backgroundClass}`}>
+    <header className={`w-16 h-screen SettingMenu ${backgroundClass} sticky`}>
       <TitleLogo className="w-full mx-auto justify-center my-6" />
       <a href="#" onClick={back} className="ml-6 mt-6 mb-4 flex items-center">
         <FaAngleLeft />
@@ -46,7 +46,7 @@ export const SettingMenu: React.FC<Props> = ({ treePath }) => {
       </a>
       <Tree
         items={settings}
-        className="flex flex-col justify-start h-full w-full ml-6"
+        className="flex flex-col justify-start ml-6"
         onClickChild={onClick}
         treePath={treePath}
       />

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import './index.scss';
 import { Colors, Theme } from '@/types/theme';
-import { withTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import { css } from '@emotion/css';
 import { lighten } from '@/utils/Theme/color';
 import { useRippleEffect } from './useRipple';
@@ -13,7 +13,6 @@ interface Props {
   fab?: boolean;
   icon?: boolean;
   className?: string;
-  theme: Theme;
   disable?: boolean;
   onClick?: (event: React.MouseEvent) => void;
   ripple?: boolean;
@@ -21,17 +20,17 @@ interface Props {
   effectColor?: string;
   small?: boolean;
   large?: boolean;
+  absolute?: boolean;
+  href?: string;
 }
 
-const _Button: React.FC<Props> = ({
+export const Button: React.FC<Props> = ({
   color,
-  // round,
-  // outline,
+  outline,
   // fab,
   icon,
   children,
   className,
-  theme,
   disable,
   onClick,
   ripple,
@@ -39,7 +38,10 @@ const _Button: React.FC<Props> = ({
   effectColor,
   small,
   large,
+  absolute,
+  href,
 }) => {
+  const theme = useTheme();
   const handleClick = useCallback(
     (event: React.MouseEvent) => {
       if (disable) {
@@ -61,6 +63,13 @@ const _Button: React.FC<Props> = ({
   }, [color]);
 
   const hoverClass = useMemo(() => {
+    if (outline) {
+      return css({
+        '&:hover': {
+          background: 'rgba(255,255,255,0.2)',
+        },
+      });
+    }
     if (!color || color === 'primary') {
       return css({
         '&:hover': {
@@ -78,7 +87,7 @@ const _Button: React.FC<Props> = ({
     }
   }, [theme.primary, color]);
 
-  const ref = useRef({} as HTMLButtonElement);
+  const ref = useRef({} as any);
   const { handleMouseDown, handleMouseUp, effectStyle } = useRippleEffect(ref);
   const _effectSize = useMemo(() => effectSize || 128, [effectSize]);
   const _effectColor = useMemo(() => effectColor || 'white', [effectColor]);
@@ -107,24 +116,28 @@ const _Button: React.FC<Props> = ({
     return classes;
   }, [small, large]);
 
-  return (
-    <button
-      ref={ref}
-      className={`${className || ''} bg-${
-        mainColor || 'primary'
-      } ${hoverClass} ${
-        disable ? 'btn-disabled' : ''
-      } relative overflow-hidden font-bold py-2 px-4 ${
-        icon ? iconsClasses : 'rounded'
-      } hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none flex place-items-center`}
-      onClick={handleClick}
-      onMouseDown={ripple ? handleMouseDown : undefined}
-      onMouseUp={ripple ? handleMouseUp : undefined}
-    >
+  const state = {
+    ref,
+    className: `${outline ? 'border-solid border-2' : ''} ${
+      outline ? 'border' : 'bg'
+    }-${mainColor || 'primary'} ${hoverClass} ${
+      disable ? 'btn-disabled' : ''
+    }  overflow-hidden font-bold py-2 px-4 ${
+      icon ? iconsClasses : 'rounded'
+    } hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none flex place-items-center ${
+      absolute ? 'absolute' : 'relative'
+    } ${className || ''}`,
+    onClick: handleClick,
+    onMouseDown: ripple ? handleMouseDown : undefined,
+    onMouseUp: ripple ? handleMouseUp : undefined,
+  };
+
+  const child = (
+    <>
       {ripple && <span className={effectClass} style={effectStyle} />}
       {children}
-    </button>
+    </>
   );
-};
 
-export const Button = withTheme(_Button);
+  return href ? <a {...state}>{child}</a> : <button {...state}>{child}</button>;
+};
