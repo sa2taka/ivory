@@ -122,7 +122,7 @@ export const Button: React.FC<Props> = ({
       outline ? 'border' : 'bg'
     }-${mainColor || 'primary'} ${hoverClass} ${
       disable ? 'btn-disabled' : ''
-    }  overflow-hidden font-bold py-2 px-4 ${
+    }  overflow-hidden font-bold py-2 px-2 ${
       icon ? iconsClasses : 'rounded'
     } hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none flex place-items-center ${
       absolute ? 'absolute' : 'relative'

@@ -6,7 +6,7 @@ import { css } from '@emotion/css';
 import { darken, isDark, lighten } from '@/utils/Theme/color';
 import './ListUser.scss';
 import { Button } from '@/components/atoms/Button';
-import { FaUser, FaTimes } from 'react-icons/fa';
+import { FaTwitter, FaMastodon, FaTimes } from 'react-icons/fa';
 
 interface Props {
   user: User;
@@ -50,10 +50,14 @@ export const ListUser: React.FC<Props> = ({ user, className }) => {
 
       <div className="ListUserButtonArea ListUserAnimationBezier flex items-center absolute">
         <Button outline ripple icon>
-          <FaUser />
+          {domain === 'twitter.com' ? (
+            <FaTwitter size="28" />
+          ) : (
+            <FaMastodon size="28" />
+          )}
         </Button>
         <Button outline ripple icon color="red" className="ml-4">
-          <FaTimes />
+          <FaTimes size="28" />
         </Button>
       </div>
     </li>
