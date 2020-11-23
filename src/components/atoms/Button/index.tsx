@@ -12,6 +12,7 @@ interface Props {
   outline?: boolean;
   fab?: boolean;
   icon?: boolean;
+  text?: boolean;
   className?: string;
   disable?: boolean;
   onClick?: (event: React.MouseEvent) => void;
@@ -29,6 +30,7 @@ export const Button: React.FC<Props> = ({
   outline,
   // fab,
   icon,
+  text,
   children,
   className,
   disable,
@@ -63,6 +65,9 @@ export const Button: React.FC<Props> = ({
   }, [color]);
 
   const hoverClass = useMemo(() => {
+    if (text) {
+      return '';
+    }
     if (outline) {
       return css({
         '&:hover': {
@@ -85,12 +90,15 @@ export const Button: React.FC<Props> = ({
     } else {
       return 'hover:bg-' + color + '-400';
     }
-  }, [theme.primary, color]);
+  }, [theme.primary, color, text, outline]);
 
   const ref = useRef({} as any);
   const { handleMouseDown, handleMouseUp, effectStyle } = useRippleEffect(ref);
   const _effectSize = useMemo(() => effectSize || 128, [effectSize]);
-  const _effectColor = useMemo(() => effectColor || 'white', [effectColor]);
+  const _effectColor = useMemo(
+    () => effectColor || color || 'var(--primary-color)',
+    [effectColor]
+  );
   const effectClass = css({
     display: 'block',
     position: 'absolute',
@@ -116,15 +124,17 @@ export const Button: React.FC<Props> = ({
     return classes;
   }, [small, large]);
 
+  const colorCss = `${outline ? 'border' : 'bg'}-${mainColor || 'primary'} `;
+
   const state = {
     ref,
     className: `${outline ? 'border-solid border-2' : ''} ${
-      outline ? 'border' : 'bg'
-    }-${mainColor || 'primary'} ${hoverClass} ${
+      text ? '' : colorCss
+    }${hoverClass} ${
       disable ? 'btn-disabled' : ''
-    }  overflow-hidden font-bold py-2 px-2 ${
-      icon ? iconsClasses : 'rounded'
-    } hover:shadow-md ivory-button transition duration-200 text-white focus:outline-none flex place-items-center ${
+    }  overflow-hidden font-bold py-2 px-2 ${icon ? iconsClasses : 'rounded'} ${
+      text || outline || icon ? '' : 'hover:shadow-md'
+    } ivory-button transition duration-200 text-white focus:outline-none flex place-items-center ${
       absolute ? 'absolute' : 'relative'
     } ${className || ''}`,
     onClick: handleClick,
